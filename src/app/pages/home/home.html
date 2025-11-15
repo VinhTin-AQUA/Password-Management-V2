@@ -1,0 +1,41 @@
+<div class="p-4 space-y-4">
+    @for (acc of accounts; track $index) {
+    <div class="relative">
+        <!-- ACCOUNT ITEM -->
+        <div class="account-item" (click)="openDetail(acc)">
+            <div class="flex items-center gap-3">
+                <div class="account-avatar">
+                    {{ acc.icon }}
+                </div>
+                <div>
+                    <div class="account-name">{{ acc.name }}</div>
+                    <div class="account-sub">{{ acc.username }}</div>
+                </div>
+            </div>
+
+            <!-- menu button -->
+            <button (click)="toggleMenu($index); $event.stopPropagation()">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-gray-600"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <circle cx="12" cy="6" r="1.5" />
+                    <circle cx="12" cy="12" r="1.5" />
+                    <circle cx="12" cy="18" r="1.5" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- CONTEXT MENU -->
+        @if(openIndex === $index) {
+        <div class="context-menu">
+            <div class="context-menu-item" (click)="copy(acc)">Copy password</div>
+            <div class="context-menu-item" (click)="edit(acc)">Edit</div>
+            <div class="context-menu-item text-red-500" (click)="remove(acc)">Delete</div>
+        </div>
+        }
+    </div>
+    }
+</div>

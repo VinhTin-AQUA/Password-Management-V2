@@ -11,3 +11,25 @@ body {
     box-sizing: border-box;
     overflow-x: hidden;
 }
+
+html {
+    scrollbar-gutter: stable; /* Không dịch chuyển nội dung khi xuất hiện scrollbar */
+}
+
+/* Scrollbar gọn, nhẹ và không chiếm vùng hiển thị */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7a7a7a;
+}

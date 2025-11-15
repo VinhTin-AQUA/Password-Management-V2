@@ -1,5 +1,12 @@
 {
-	"app": {
-		"title": "Password Management"
-	}
+    "app": {
+        "title": "Password Management"
+    },
+    "menuSidebar": {
+        "home": "Home",
+        "invoices": "Invoices",
+        "addInvoice": "AddInvoice",
+        "configDetails": "ConfigDetails",
+        "settings": "Settings"
+    }
 }

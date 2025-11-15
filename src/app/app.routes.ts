@@ -1,18 +1,47 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './shared/components/main-layout/main-layout';
+import { Home } from './pages/home/home';
+import { AddAccount } from './pages/add-account/add-account';
+import { Settings } from './pages/settings/settings';
+import { AuthLayout } from './shared/components/auth-layout/auth-layout';
+import { Login } from './pages/login/login';
+import { Config } from './pages/config/config';
+import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from './core/routes.enum';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: MAIN_ROUTE,
         component: MainLayout,
         children: [
-            // {
-            //     path: 'home',
-            //     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
-            // },
-
+            {
+                path: MainRoutes.Home,
+                component: Home,
+            },
+            {
+                path: MainRoutes.AddAccount,
+                component: AddAccount,
+            },
+            {
+                path: MainRoutes.Settings,
+                component: Settings,
+            },
             { path: '', redirectTo: 'home', pathMatch: 'full' },
         ],
     },
-    { path: '**', redirectTo: '' },
+    {
+        path: AUTH_ROUTE,
+        component: AuthLayout,
+        children: [
+            {
+                path: AuthRoutes.Login,
+                component: Login,
+            },
+            {
+                path: AuthRoutes.Config,
+                component: Config,
+            },
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+        ],
+    },
+    { path: '**', redirectTo: MAIN_ROUTE },
 ];
