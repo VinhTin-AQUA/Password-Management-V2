@@ -1,40 +1,43 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })
 export class Home {
+    openMenu: number | null = null;
     accounts = [
-        { name: 'Google', username: 'megmail.com', icon: 'G' },
-        { name: 'Facebook', username: 'john123', icon: 'F' },
-        { name: 'GitHub', username: 'devuser', icon: 'GH' },
+        { name: 'Facebook', username: 'user.fb@gmail.com' },
+        { name: 'Gmail', username: 'me@gmail.com' },
+        { name: 'Github', username: 'dev123' },
     ];
-
-    openIndex: number | null = null;
+     speedDialOpen = false;
 
     toggleMenu(i: number) {
-        this.openIndex = this.openIndex === i ? null : i;
+        this.openMenu = this.openMenu === i ? null : i;
     }
 
-    copy(acc: any) {
-        console.log('Copy pw', acc);
-        this.openIndex = null;
-    }
-
-    edit(acc: any) {
+    onEdit(acc: any) {
         console.log('Edit', acc);
-        this.openIndex = null;
+        this.openMenu = null;
     }
 
-    remove(acc: any) {
+    onCopy(acc: any) {
+        console.log('Copy', acc);
+        navigator.clipboard.writeText(acc.username);
+        this.openMenu = null;
+    }
+
+    onDelete(acc: any) {
         console.log('Delete', acc);
-        this.openIndex = null;
+        this.openMenu = null;
     }
+   
 
-    openDetail(acc: any) {
-        console.log('Open account detail', acc);
+    toggleSpeedDial() {
+        this.speedDialOpen = !this.speedDialOpen;
     }
 }
