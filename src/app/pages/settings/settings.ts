@@ -50,4 +50,8 @@ export class Settings {
         this.selectedTheme = theme;
         this.openTheme = false;
     }
+
+    exportToExcel() {
+        
+    }
 }

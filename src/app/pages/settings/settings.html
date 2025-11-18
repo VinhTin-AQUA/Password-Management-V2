@@ -1,74 +1,96 @@
-<div class="max-w-md mx-auto mt-10 space-y-6 p-6 bg-white rounded-2xl shadow-lg">
+<div
+    class="max-w-md mx-auto p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg transition-colors duration-300"
+>
     <!-- Language Selector -->
-    <div>
-        <label class="block font-semibold mb-2 text-gray-700">Language</label>
+    <div class="relative">
+        <label class="block font-semibold mb-2 text-gray-700 dark:text-gray-200">Language</label>
+        <button
+            class="w-full flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 cursor-pointer"
+            (click)="toggleLanguage()"
+        >
+            <div class="flex items-center gap-3">
+                <img [src]="selectedLanguage.flag" class="w-6 h-6 rounded-sm" />
+                <span class="text-gray-800 dark:text-gray-200">{{ selectedLanguage.label }}</span>
+            </div>
+            <span class="material-icons text-gray-500">expand_more</span>
+        </button>
 
-        <div class="relative" (click)="toggleLanguage()">
-            <!-- Selected Box -->
-            <button
-                class="w-full flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl border border-gray-300 hover:bg-gray-200 transition cursor-pointer"
+        <!-- Dropdown -->
+        @if (openLanguage) {
+        <ul
+            class="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xl z-20 overflow-hidden transform transition-all duration-200 origin-top"
+            [class.scale-100]="openLanguage"
+            [class.scale-95]="!openLanguage"
+            [class.opacity-100]="openLanguage"
+            [class.opacity-0]="!openLanguage"
+            [class.pointer-events-auto]="openLanguage"
+            [class.pointer-events-none]="!openLanguage"
+        >
+            @for (lang of languages; track $index) {
+            <li
+                (click)="selectLanguage(lang)"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200"
             >
-                <div class="flex items-center gap-3">
-                    <img [src]="selectedLanguage.flag" class="w-6 h-6 rounded-sm" />
-                    <span>{{ selectedLanguage.label }}</span>
-                </div>
-                <span class="material-icons">expand_more</span>
-            </button>
-
-            <!-- Dropdown -->
-            @if (openLanguage) {
-            <ul
-                class="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-20 overflow-hidden"
-            >
-                @for (lang of languages; track $index) {
-                <li
-                    (click)="selectLanguage(lang)"
-                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                >
-                    <img [src]="lang.flag" class="w-6 h-6 rounded-sm" />
-                    <span>{{ lang.label }}</span>
-                </li>
-                }
-            </ul>
+                <img [src]="lang.flag" class="w-6 h-6 rounded-sm" />
+                <span class="text-gray-800 dark:text-gray-200">{{ lang.label }}</span>
+            </li>
             }
-        </div>
+        </ul>
+        }
     </div>
 
     <!-- Theme Selector -->
-    <div>
-        <label class="block font-semibold mb-2 text-gray-700">Theme</label>
+    <div class="relative">
+        <label class="block font-semibold mb-2 text-gray-700 dark:text-gray-200">Theme</label>
+        <button
+            class="w-full flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 cursor-pointer"
+            (click)="toggleTheme()"
+        >
+            <div class="flex items-center gap-3">
+                <span
+                    class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
+                    [style.background]="selectedTheme.color"
+                ></span>
+                <span class="text-gray-800 dark:text-gray-200">{{ selectedTheme.label }}</span>
+            </div>
+            <span class="material-icons text-gray-500">expand_more</span>
+        </button>
 
-        <div class="relative" (click)="toggleTheme()">
-            <!-- Selected Theme -->
-            <button
-                class="w-full flex items-center justify-between bg-gray-100 px-4 py-3 rounded-xl border border-gray-300 hover:bg-gray-200 transition cursor-pointer"
+        <!-- Dropdown -->
+        @if (openTheme) {
+        <ul
+            class="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xl z-20 overflow-hidden transform transition-all duration-200 origin-top"
+            [class.scale-100]="openLanguage"
+            [class.scale-95]="!openLanguage"
+            [class.opacity-100]="openLanguage"
+            [class.opacity-0]="!openLanguage"
+            [class.pointer-events-auto]="openLanguage"
+            [class.pointer-events-none]="!openLanguage"
+        >
+            @for (theme of themes; track $index) {
+            <li
+                (click)="selectTheme(theme)"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200"
             >
-                <div class="flex items-center gap-3">
-                    <span
-                        class="w-6 h-6 rounded-full"
-                        [style.background]="selectedTheme.color"
-                    ></span>
-                    <span>{{ selectedTheme.label }}</span>
-                </div>
-                <span class="material-icons">expand_more</span>
-            </button>
-
-            <!-- Dropdown -->
-            @if (openTheme) {
-            <ul
-                class="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-20 overflow-hidden"
-            >
-                @for (theme of themes; track $index) {
-                <li
-                    (click)="selectTheme(theme)"
-                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                >
-                    <span class="w-6 h-6 rounded-full" [style.background]="theme.color"></span>
-                    <span>{{ theme.label }}</span>
-                </li>
-                }
-            </ul>
+                <span
+                    class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
+                    [style.background]="theme.color"
+                ></span>
+                <span class="text-gray-800 dark:text-gray-200">{{ theme.label }}</span>
+            </li>
             }
-        </div>
+        </ul>
+        }
+    </div>
+
+    <!-- Export Button -->
+    <div class="flex justify-end">
+        <button
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition duration-200"
+            (click)="exportToExcel()"
+        >
+            <span class="material-icons">file_download</span>
+            Export Excel
+        </button>
     </div>
 </div>
