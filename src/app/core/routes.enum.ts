@@ -10,4 +10,5 @@ export enum MainRoutes {
     Home = 'home',
     AddAccount = 'add-account',
     Settings = 'settings',
+    EditAccount = 'edit-account',
 }

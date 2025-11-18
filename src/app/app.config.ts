@@ -9,8 +9,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import {  } from '@angular/animations';
-
 export const appConfig: ApplicationConfig = {
     providers: [
         provideBrowserGlobalErrorListeners(),
@@ -32,6 +30,5 @@ export const appConfig: ApplicationConfig = {
 			fallbackLang: 'en',
 			lang: 'en',
 		}),
-        provideAnimations(),
     ],
 };

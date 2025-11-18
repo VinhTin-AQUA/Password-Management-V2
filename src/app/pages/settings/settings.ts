@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SelectBox, SelectOption } from '../../shared/components/select-box/select-box';
 
 @Component({
     selector: 'app-settings',
-    imports: [FormsModule],
+    imports: [FormsModule, SelectBox],
     templateUrl: './settings.html',
     styleUrl: './settings.scss',
 })
 export class Settings {
     // Language list
-    languages = [
-        { label: 'English', value: 'en', flag: '/assets/flags/us.png' },
-        { label: 'Vietnamese', value: 'vi', flag: '/assets/flags/vn.png' },
-        { label: 'Japanese', value: 'jp', flag: '/assets/flags/jp.png' },
+    languages: SelectOption[] = [
+        { label: 'English', value: 'en' },
+        { label: 'Vietnamese', value: 'vi' },
+        { label: 'Japanese', value: 'jp' },
     ];
 
     // Theme list
-    themes = [
-        { label: 'Light', value: 'light', color: '#f3f4f6' },
-        { label: 'Dark', value: 'dark', color: '#111827' },
-        { label: 'Blue', value: 'blue', color: '#3b82f6' },
-        { label: 'Purple', value: 'purple', color: '#8b5cf6' },
+    themes: SelectOption[] = [
+        { label: 'Light', value: 'light' },
+        { label: 'Dark', value: 'dark' },
+        { label: 'Blue', value: 'blue' },
+        { label: 'Purple', value: 'purple' },
     ];
 
     // Selected
@@ -51,7 +52,5 @@ export class Settings {
         this.openTheme = false;
     }
 
-    exportToExcel() {
-        
-    }
+    exportToExcel() {}
 }

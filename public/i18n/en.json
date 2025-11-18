@@ -1,6 +1,6 @@
 {
     "app": {
-        "title": "Password Management"
+        "title": "Passwords"
     },
     "menuSidebar": {
         "home": "Home",
@@ -14,5 +14,9 @@
     "confirmPassword": "Confirm password",
     "note": "Note",
     "addNewAccount": "Add new account",
-    "saveAccount": "Save account"
+    "saveAccount": "Save account",
+    "editNewAccount": "Edit new account",
+    "updateAccount": "Update account",
+    "ok": "Ok",
+    "cancel": "Cancel"
 }

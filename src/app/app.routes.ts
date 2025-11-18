@@ -7,6 +7,7 @@ import { AuthLayout } from './shared/components/auth-layout/auth-layout';
 import { Login } from './pages/login/login';
 import { Config } from './pages/config/config';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from './core/routes.enum';
+import { EditAccount } from './pages/edit-account/edit-account';
 
 export const routes: Routes = [
     {
@@ -24,6 +25,10 @@ export const routes: Routes = [
             {
                 path: MainRoutes.Settings,
                 component: Settings,
+            },
+            {
+                path: MainRoutes.EditAccount,
+                component: EditAccount,
             },
             { path: '', redirectTo: 'home', pathMatch: 'full' },
         ],

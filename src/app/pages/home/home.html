@@ -2,6 +2,7 @@
     <!-- Accounts List -->
     @for (acc of accounts; track $index) {
     <div
+        (clickOutside)="closeContextMenu()"
         class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-md active:scale-[0.97] transition transform duration-200"
     >
         <!-- Left -->
@@ -18,7 +19,7 @@
         <div class="relative">
             <button
                 class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 transition"
-                (click)="toggleMenu($index)"
+                (click)="toggleMenu($index, $event)"
             >
                 <!-- three-dots icon -->
                 <svg
@@ -67,7 +68,10 @@
     }
 
     <!-- SPEED DIAL -->
-    <div class="fixed bottom-6 right-6 flex flex-col items-center z-50">
+    <div
+        (clickOutside)="closeSpeedDial()"
+        class="fixed bottom-6 right-6 flex flex-col items-center z-50"
+    >
         <!-- Speed Dial Items -->
         @if (speedDialOpen) {
         <div class="flex flex-col items-center mb-4 space-y-3 transition-all duration-300">
@@ -156,7 +160,7 @@
 
         <!-- FAB BUTTON -->
         <button
-            class="flex items-center justify-center w-14 h-14 rounded-full bg-black dark:bg-green-600 text-white shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-900 dark:hover:bg-green-700 active:scale-95 transition transform"
+            class="flex items-center justify-center w-14 h-14 rounded-full bg-black dark:bg-blue-600 text-white shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-900 dark:hover:bg-blue-700 active:scale-95 transition transform"
             (click)="toggleSpeedDial()"
         >
             <svg
@@ -171,6 +175,4 @@
             </svg>
         </button>
     </div>
-
-    <!-- Animation -->
 </div>

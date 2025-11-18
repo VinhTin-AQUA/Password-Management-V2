@@ -2,95 +2,28 @@
     class="max-w-md mx-auto p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg transition-colors duration-300"
 >
     <!-- Language Selector -->
-    <div class="relative">
+    <div class="relative mb-3">
         <label class="block font-semibold mb-2 text-gray-700 dark:text-gray-200">Language</label>
-        <button
-            class="w-full flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 cursor-pointer"
-            (click)="toggleLanguage()"
-        >
-            <div class="flex items-center gap-3">
-                <img [src]="selectedLanguage.flag" class="w-6 h-6 rounded-sm" />
-                <span class="text-gray-800 dark:text-gray-200">{{ selectedLanguage.label }}</span>
-            </div>
-            <span class="material-icons text-gray-500">expand_more</span>
-        </button>
 
-        <!-- Dropdown -->
-        @if (openLanguage) {
-        <ul
-            class="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xl z-20 overflow-hidden transform transition-all duration-200 origin-top"
-            [class.scale-100]="openLanguage"
-            [class.scale-95]="!openLanguage"
-            [class.opacity-100]="openLanguage"
-            [class.opacity-0]="!openLanguage"
-            [class.pointer-events-auto]="openLanguage"
-            [class.pointer-events-none]="!openLanguage"
-        >
-            @for (lang of languages; track $index) {
-            <li
-                (click)="selectLanguage(lang)"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200"
-            >
-                <img [src]="lang.flag" class="w-6 h-6 rounded-sm" />
-                <span class="text-gray-800 dark:text-gray-200">{{ lang.label }}</span>
-            </li>
-            }
-        </ul>
-        }
+        <!-- language -->
+        <app-select-box [options]="languages"></app-select-box>
     </div>
 
     <!-- Theme Selector -->
-    <div class="relative">
+    <div class="relative mb-3">
         <label class="block font-semibold mb-2 text-gray-700 dark:text-gray-200">Theme</label>
-        <button
-            class="w-full flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 cursor-pointer"
-            (click)="toggleTheme()"
-        >
-            <div class="flex items-center gap-3">
-                <span
-                    class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
-                    [style.background]="selectedTheme.color"
-                ></span>
-                <span class="text-gray-800 dark:text-gray-200">{{ selectedTheme.label }}</span>
-            </div>
-            <span class="material-icons text-gray-500">expand_more</span>
-        </button>
 
         <!-- Dropdown -->
-        @if (openTheme) {
-        <ul
-            class="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xl z-20 overflow-hidden transform transition-all duration-200 origin-top"
-            [class.scale-100]="openLanguage"
-            [class.scale-95]="!openLanguage"
-            [class.opacity-100]="openLanguage"
-            [class.opacity-0]="!openLanguage"
-            [class.pointer-events-auto]="openLanguage"
-            [class.pointer-events-none]="!openLanguage"
-        >
-            @for (theme of themes; track $index) {
-            <li
-                (click)="selectTheme(theme)"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-200"
-            >
-                <span
-                    class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
-                    [style.background]="theme.color"
-                ></span>
-                <span class="text-gray-800 dark:text-gray-200">{{ theme.label }}</span>
-            </li>
-            }
-        </ul>
-        }
+        <app-select-box [options]="themes"></app-select-box>
     </div>
 
     <!-- Export Button -->
     <div class="flex justify-end">
         <button
-            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition duration-200"
+            class="gap-2 text-center w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-500 text-white font-semibold px-5 py-3 rounded-xl shadow-md duration-150 transition"
             (click)="exportToExcel()"
         >
-            <span class="material-icons">file_download</span>
-            Export Excel
+            <span class="">Export Excel</span>
         </button>
     </div>
 </div>
