@@ -35,13 +35,17 @@ export class Home {
         this.router.navigateByUrl(`${MAIN_ROUTE}/${MainRoutes.EditAccount}`);
     }
 
-    onCopy(acc: any) {
+    onCopy(acc: any, event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
         console.log('Copy', acc);
         navigator.clipboard.writeText(acc.username);
         this.openMenu = null;
     }
 
-    onDelete(acc: any) {
+    onDelete(acc: any, event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
         console.log('Delete', acc);
         this.openMenu = null;
 
