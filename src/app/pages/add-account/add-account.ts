@@ -5,6 +5,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AddAccountModel } from './models/add-account.model';
 import { ResponseCommand } from '../../shared/models/response-command';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
+import { StoreHelper } from '../../shared/helpers/store-helper';
+import { SettingKeys } from '../../core/enums/setting-keys';
+import { Router } from '@angular/router';
+import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 
 @Component({
     selector: 'app-add-account',
@@ -17,8 +21,13 @@ export class AddAccount {
     submitted: boolean = false;
     form!: FormGroup;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
+    savedPassCode: string | undefined = undefined;
 
-    constructor(private tauriCommandSerivce: TauriCommandSerivce, private fb: FormBuilder) {}
+    constructor(
+        private tauriCommandSerivce: TauriCommandSerivce,
+        private fb: FormBuilder,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.form = this.fb.group({
@@ -28,11 +37,16 @@ export class AddAccount {
             confirmPassword: ['', Validators.required],
             note: [''],
         });
+        this.init();
     }
 
     async save() {
         this.submitted = true;
         if (this.form.invalid) {
+            return;
+        }
+
+        if (this.form.controls['password'].value !== this.form.controls['confirmPassword'].value) {
             return;
         }
 
@@ -43,6 +57,7 @@ export class AddAccount {
             note: this.form.controls['note'].value,
             password: this.form.controls['password'].value,
             user_name: this.form.controls['username'].value,
+            saltBase64: '',
         };
 
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
@@ -52,10 +67,16 @@ export class AddAccount {
                 spreadsheetId: this.spreadsheetConfigStore.spreadSheetId(),
             },
             {
-                password: addAccount
+                password: addAccount,
+                passcode: this.savedPassCode,
             }
         );
+    }
 
-        console.log(response);
+    private async init() {
+        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
+        if (!this.savedPassCode) {
+            this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
+        }
     }
 }

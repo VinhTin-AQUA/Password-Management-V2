@@ -2,10 +2,11 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { QuestionCancelDialogStore } from '../../stores/question-cancel-dialog.store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DialogService } from '../../services/dialog-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-question-cancel-dialog',
-    imports: [TranslatePipe],
+    imports: [TranslatePipe, CommonModule],
     templateUrl: './question-cancel-dialog.html',
     styleUrl: './question-cancel-dialog.scss',
 })

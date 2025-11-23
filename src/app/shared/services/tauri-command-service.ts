@@ -8,6 +8,7 @@ import { DialogService } from './dialog-service';
 export class TauriCommandSerivce {
     static readonly INIT_GOOGLE_SHEET_COMMAND = 'init_google_sheet_command';
     static readonly ADD_ACCOUNT = 'add_account';
+    static readonly GET_ACCOUNTS = 'get_accounts';
 
     constructor(private dialogService: DialogService) {}
 

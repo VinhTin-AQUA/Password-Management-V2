@@ -1,0 +1,134 @@
+<div class="p-4 font-sans text-gray-800 dark:text-gray-200 space-y-4">
+    <!-- Logo -->
+    <div class="flex flex-col items-center space-y-2">
+        <img src="/encrypted.png" class="w-16 h-16 rounded-xl shadow-sm" alt="App Logo" />
+        <h1 class="text-xl font-semibold">{{ 'addPasscodeForm.addPasscode' | translate }}</h1>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm space-y-4">
+            <!-- passcode -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'addPasscodeForm.passcode' | translate }}
+                </label>
+                <div class="relative">
+                    <input
+                        [type]="showPasscode ? 'text' : 'password'"
+                        formControlName="passcode"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        placeholder="*****************"
+                    />
+                    <button
+                        type="button"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        (click)="showPasscode = !showPasscode"
+                    >
+                        @if(!showPasscode){
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M3.98 8.223a10.477 10.477 0 00-.348 7.94c1.679 4.247 6.073 6.74 10.368 5.74 3.207-.718 5.82-3.328 6.538-6.535A10.477 10.477 0 0012 4.5c-3.41 0-6.636 1.676-8.02 4.223z"
+                            />
+                        </svg>
+                        } @if(showPasscode){
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M3 3l18 18m-9-2.25c-3.41 0-6.636-1.676-8.02-4.223a10.448 10.448 0 012.18-3.138m4.09-2.195A10.448 10.448 0 0112 6.75c3.41 0 6.636 1.676 8.02 4.223a10.448 10.448 0 01-2.18 3.138M15.75 12a3.75 3.75 0 00-5.303-3.455"
+                            />
+                        </svg>
+                        }
+                    </button>
+                </div>
+
+                @if (submitted && form.get('passcode')?.invalid) {
+                <span class="text-red-500">{{ 'addAccountForm.passwordIsEmpty' | translate }}</span>
+                }
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'addPasscodeForm.confirmPasscode' | translate }}
+                </label>
+                <div class="relative">
+                    <input
+                        [type]="showPasscode ? 'text' : 'password'"
+                        formControlName="confirmPasscode"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 outline-none transition"
+                        placeholder="*****************"
+                    />
+                    <button
+                        type="button"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition"
+                        (click)="showPasscode = !showPasscode"
+                    >
+                        @if(!showPasscode){
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M3.98 8.223a10.477 10.477 0 00-.348 7.94c1.679 4.247 6.073 6.74 10.368 5.74 3.207-.718 5.82-3.328 6.538-6.535A10.477 10.477 0 0012 4.5c-3.41 0-6.636 1.676-8.02 4.223z"
+                            />
+                        </svg>
+                        } @if(showPasscode){
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M3 3l18 18m-9-2.25c-3.41 0-6.636-1.676-8.02-4.223a10.448 10.448 0 012.18-3.138m4.09-2.195A10.448 10.448 0 0112 6.75c3.41 0 6.636 1.676 8.02 4.223a10.448 10.448 0 01-2.18 3.138M15.75 12a3.75 3.75 0 00-5.303-3.455"
+                            />
+                        </svg>
+                        }
+                    </button>
+                </div>
+
+                @if (submitted && form.get('passcode')?.value !==
+                form.get('confirmPasscode')?.value) {
+                <span class="text-red-500">{{
+                    'addAccountForm.passcodeIsNotMatch' | translate
+                }}</span>
+                }
+            </div>
+
+            <!-- Submit button -->
+            <button
+                class="w-full py-3 bg-black dark:bg-blue-600 text-white rounded-xl shadow-md active:scale-[0.97] transition transform font-medium hover:bg-gray-900 dark:hover:bg-blue-700"
+                (click)="save()"
+            >
+                {{ 'addPasscodeForm.addPasscode' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

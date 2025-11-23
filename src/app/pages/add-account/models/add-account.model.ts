@@ -4,4 +4,5 @@ export interface AddAccountModel {
     user_name: String;
     password: String;
     note: String;
+    saltBase64: String;
 }

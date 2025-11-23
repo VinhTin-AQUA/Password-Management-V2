@@ -102,7 +102,7 @@ export class Config {
             return;
         }
 
-        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.Home}`);
+        this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.Login}`);
     }
 
     private async checkConfig(): Promise<boolean> {

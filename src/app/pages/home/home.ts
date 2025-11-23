@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
-import { MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
+import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { DialogService } from '../../shared/services/dialog-service';
+import { AccountModel } from './models/account,model';
+import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
+import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
+import { StoreHelper } from '../../shared/helpers/store-helper';
+import { SettingKeys } from '../../core/enums/setting-keys';
 
 @Component({
     selector: 'app-home',
@@ -12,16 +17,23 @@ import { DialogService } from '../../shared/services/dialog-service';
 })
 export class Home {
     openMenu: number | null = null;
-    accounts = [
-        { name: 'Facebook', username: 'user.fb@gmail.com' },
-        { name: 'Gmail', username: 'me@gmail.com' },
-        { name: 'Github', username: 'dev123' },
-    ];
+    accounts = signal<AccountModel[]>([]);
     speedDialOpen = false;
     mainRoute = MAIN_ROUTE;
     mainRoutes = MainRoutes;
+    spreadsheetConfigStore = inject(SpreadsheetConfigStore);
+    savedPassCode: string | undefined = undefined;
 
-    constructor(private router: Router, private dialogService: DialogService) {}
+    constructor(
+        private router: Router,
+        private dialogService: DialogService,
+        private tauriCommandSerivce: TauriCommandSerivce
+    ) {}
+
+    async ngOnInit() {
+        await this.getSavedPasscode();
+        await this.getAccounts();
+    }
 
     toggleMenu(i: number, event: Event) {
         event.preventDefault();
@@ -32,14 +44,14 @@ export class Home {
     onEdit(acc: any) {
         console.log('Edit', acc);
         this.openMenu = null;
-        this.router.navigateByUrl(`${MAIN_ROUTE}/${MainRoutes.EditAccount}`);
+        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.EditAccount}`);
     }
 
-    onCopy(acc: any, event: Event) {
+    onCopy(acc: AccountModel, event: Event) {
         event.preventDefault();
         event.stopPropagation();
         console.log('Copy', acc);
-        navigator.clipboard.writeText(acc.username);
+        navigator.clipboard.writeText(acc.password);
         this.openMenu = null;
     }
 
@@ -49,7 +61,7 @@ export class Home {
         console.log('Delete', acc);
         this.openMenu = null;
 
-        this.dialogService.showQuestionCancelDialog(true, 'xoa', 'xoa', false);
+        this.dialogService.showQuestionCancelDialog(true, 'delete', 'delete', false);
     }
 
     toggleSpeedDial() {
@@ -62,5 +74,28 @@ export class Home {
 
     closeContextMenu() {
         this.openMenu = null;
+    }
+
+    private async getAccounts() {
+        const r = await this.tauriCommandSerivce.invokeCommand<AccountModel[]>(
+            TauriCommandSerivce.GET_ACCOUNTS,
+            {
+                sheetName: this.spreadsheetConfigStore.workingSheet().title,
+                spreadsheetId: this.spreadsheetConfigStore.spreadSheetId(),
+            },
+            {
+                passcode: this.savedPassCode,
+            }
+        );
+        if (r) {
+            this.accounts.set(r);
+        }
+    }
+
+    private async getSavedPasscode() {
+        this.savedPassCode = await StoreHelper.getValue<string>(SettingKeys.passCode);
+        if (!this.savedPassCode) {
+            this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.AddPasscode}`);
+        }
     }
 }

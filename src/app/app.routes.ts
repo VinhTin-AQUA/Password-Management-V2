@@ -8,6 +8,7 @@ import { Login } from './pages/login/login';
 import { Config } from './pages/config/config';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from './core/enums/routes.enum';
 import { EditAccount } from './pages/edit-account/edit-account';
+import { AddPasscode } from './pages/add-passcode/add-passcode';
 
 export const routes: Routes = [
     {
@@ -44,6 +45,10 @@ export const routes: Routes = [
             {
                 path: AuthRoutes.Config,
                 component: Config,
+            },
+            {
+                path: AuthRoutes.AddPasscode,
+                component: AddPasscode,
             },
             { path: '', redirectTo: AuthRoutes.Config, pathMatch: 'full' },
         ],

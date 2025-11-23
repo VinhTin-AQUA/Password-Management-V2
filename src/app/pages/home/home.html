@@ -1,6 +1,6 @@
 <div class="p-4 space-y-4 font-sans text-gray-800 dark:text-gray-200">
     <!-- Accounts List -->
-    @for (acc of accounts; track $index) {
+    @for (acc of accounts(); track $index) {
     <div
         [routerLink]="`/${mainRoute}/${mainRoutes.EditAccount}`"
         (clickOutside)="closeContextMenu()"
@@ -9,10 +9,10 @@
         <!-- Left -->
         <div class="flex flex-col">
             <span class="font-semibold text-gray-800 dark:text-gray-200 text-base">{{
-                acc.name
+                acc.account_name
             }}</span>
             <span class="text-sm text-gray-500 dark:text-gray-400 truncate">{{
-                acc.username
+                acc.user_name
             }}</span>
         </div>
 

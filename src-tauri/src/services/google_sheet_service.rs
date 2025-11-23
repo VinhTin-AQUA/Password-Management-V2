@@ -1,9 +1,12 @@
+use crate::helpers::{decrypt_data, encrypt_data};
 use crate::models::{Password, ResponseCommand};
 use anyhow::anyhow;
+use base64::{engine::general_purpose, Engine as _};
 use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
+use rand::RngCore;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, to_value, Value};
+use serde_json::{json, Value};
 use std::fs;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -66,11 +69,10 @@ impl GoogleSheetsService {
         &mut self,
         sheet_name: String,
         spreadsheet_id: String,
+        passcode: String,
         password: Password,
     ) -> anyhow::Result<Option<ResponseCommand>> {
-        println!("password: {:#?}", password);
-
-        let write_range = format!("{}!A:E", urlencoding::encode(sheet_name.as_str()));
+        let write_range = format!("{}!A:F", urlencoding::encode(sheet_name.as_str()));
         let write_url = format!(
             "{}/{}/values/{}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS",
             Self::BASE_API,
@@ -78,15 +80,31 @@ impl GoogleSheetsService {
             write_range
         );
 
+        // Tạo salt ngẫu nhiên
+        let mut salt = [0u8; 16];
+        rand::thread_rng().fill_bytes(&mut salt);
+        let salt_b64 = general_purpose::STANDARD.encode(&salt);
+
         let row: Vec<Vec<Value>> = vec![vec![
             Value::from(password.id),
             Value::from(password.account_name),
-            Value::from(password.user_name),
-            Value::from(password.password),
-            Value::from(password.note),
+            Value::from(encrypt_data(
+                passcode.as_str(),
+                password.user_name.as_str(),
+                salt,
+            )),
+            Value::from(encrypt_data(
+                passcode.as_str(),
+                password.password.as_str(),
+                salt,
+            )),
+            Value::from(encrypt_data(
+                passcode.as_str(),
+                password.note.as_str(),
+                salt,
+            )),
+            Value::from(salt_b64),
         ]];
-
-        println!("row: {:#?}", row);
 
         let body = json!({
         "majorDimension": "ROWS",
@@ -109,6 +127,28 @@ impl GoogleSheetsService {
             is_success: true,
         };
         Ok(Some(response_command))
+    }
+
+    pub async fn get_accounts(
+        &mut self,
+        sheet_name: String,
+        spreadsheet_id: String,
+        passcode: String,
+    ) -> anyhow::Result<Option<Vec<Password>>> {
+        let range = format!("{}!A:F", urlencoding::encode(sheet_name.as_str()));
+        let read_url = format!("{}/{}/values/{}", Self::BASE_API, spreadsheet_id, range);
+
+        let res = self
+            .client
+            .get(read_url)
+            .bearer_auth(self.access_token.as_str())
+            .send()
+            .await?
+            .json::<Value>()
+            .await?;
+
+        let grouped = Self::convert_to_list(&res, passcode);
+        Ok(Some(grouped))
     }
 
     /* private methods */
@@ -156,5 +196,62 @@ impl GoogleSheetsService {
 
         let token: TokenResponse = res.json().await?;
         Ok(Some(token))
+    }
+
+    fn convert_to_list(value: &Value, passcode: String) -> Vec<Password> {
+        // Lấy mảng "values" trong JSON
+        let Some(values_array) = value.get("values").and_then(|v| v.as_array()) else {
+            return vec![];
+        };
+        let mut map: Vec<Password> = Vec::new();
+
+        println!("{:#?}", values_array);
+
+        // Bỏ qua dòng tiêu đề
+        for row_value in values_array.iter().skip(2) {
+            let Some(row) = row_value.as_array() else {
+                continue;
+            };
+
+            if row.len() < 6 {
+                continue;
+            }
+
+            let salt_base64 = row[5].as_str().unwrap().trim();
+
+            let id = row[0].as_str().unwrap().trim().to_string();
+            let account_name = row[1].as_str().unwrap().trim().to_string();
+            let user_name = decrypt_data(
+                passcode.as_str(),
+                salt_base64,
+                row[2].as_str().unwrap().trim(),
+            );
+            let password = decrypt_data(
+                passcode.as_str(),
+                salt_base64,
+                row[3].as_str().unwrap().trim(),
+            );
+            let note = decrypt_data(
+                passcode.as_str(),
+                salt_base64,
+                row[4].as_str().unwrap().trim(),
+            );
+
+            let item = Password {
+                id,
+                account_name,
+                user_name: user_name.unwrap_or("Failed to decrypt".to_string()),
+                password: password.unwrap_or("Failed to decrypt".to_string()),
+                note: note.unwrap_or("Failed to decrypt".to_string()),
+                saltBase64: salt_base64.to_string(),
+            };
+
+             println!("{:#?}", item);
+            map.push(item);
+        }
+
+        println!("{:#?}", map);
+
+        map
     }
 }

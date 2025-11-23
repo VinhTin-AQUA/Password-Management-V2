@@ -1,4 +1,5 @@
 mod commands;
+mod helpers;
 mod models;
 mod services;
 mod states;
@@ -31,7 +32,8 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             init_google_sheet_command,
-            add_account
+            add_account,
+            get_accounts
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

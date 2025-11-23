@@ -9,7 +9,7 @@
         "configDetails": "ConfigDetails",
         "settings": "Settings"
     },
-    "accountName":"Account Name",
+    "accountName": "Account Name",
     "userName": "User name",
     "password": "Password",
     "confirmPassword": "Confirm password",
@@ -31,5 +31,13 @@
         "userNameIsEmpty": "User name is empty",
         "passwordIsEmpty": "Password is empty",
         "passwordIsNotMatch": "Password is not match"
-    }
+    },
+    "addPasscodeForm": {
+        "addPasscode": "Add Passcode",
+        "passcode": "Passcode",
+        "confirmPasscode": "Confirm Passcode",
+        "passcodeIsNotMatch": "Pass code is not match",
+        "passcodeIsNotValid": "Passcode is not valid"
+    },
+    "delete": "Delete"
 }

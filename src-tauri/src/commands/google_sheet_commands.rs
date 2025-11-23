@@ -25,6 +25,7 @@ pub async fn add_account(
     state: State<'_, Mutex<AppState>>,
     sheet_name: String,
     spreadsheet_id: String,
+    passcode: String,
     password: Password,
 ) -> Result<Option<ResponseCommand>, String> {
     let mut state_guard = state.lock().await;
@@ -33,7 +34,26 @@ pub async fn add_account(
     let t: Result<Option<ResponseCommand>, String> = google_service
         .lock()
         .await
-        .add_account(sheet_name, spreadsheet_id, password)
+        .add_account(sheet_name, spreadsheet_id, passcode, password)
+        .await
+        .map_err(|e| e.to_string());
+    t
+}
+
+#[command]
+pub async fn get_accounts(
+    state: State<'_, Mutex<AppState>>,
+    sheet_name: String,
+    spreadsheet_id: String,
+    passcode: String,
+) -> Result<Option<Vec<Password>>, String> {
+    let mut state_guard = state.lock().await;
+    let google_service = &mut state_guard.google_sheet_service;
+
+    let t: Result<Option<Vec<Password>>, String> = google_service
+        .lock()
+        .await
+        .get_accounts(sheet_name, spreadsheet_id, passcode)
         .await
         .map_err(|e| e.to_string());
     t
