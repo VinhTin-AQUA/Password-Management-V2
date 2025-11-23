@@ -9,6 +9,7 @@ import { SettingKeys } from '../../core/enums/setting-keys';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { AccountModel } from '../../shared/models/account-model';
+import { DialogService } from '../../shared/services/dialog-service';
 
 @Component({
     selector: 'app-add-account',
@@ -26,7 +27,8 @@ export class AddAccount {
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
         private fb: FormBuilder,
-        private router: Router
+        private router: Router,
+        private dialogService: DialogService
     ) {}
 
     ngOnInit() {
@@ -67,6 +69,12 @@ export class AddAccount {
                 password: addAccount,
             }
         );
+
+        if (response?.is_success) {
+            this.dialogService.showToastMessage(true, 'Success', 'Add account successfully', true);
+        } else {
+            this.dialogService.showToastMessage(true, 'Failed', 'Something error', false);
+        }
     }
 
     private async init() {

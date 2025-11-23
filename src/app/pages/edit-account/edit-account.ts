@@ -10,6 +10,7 @@ import { StoreHelper } from '../../shared/helpers/store-helper';
 import { ResponseCommand } from '../../shared/models/response-command';
 import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
+import { DialogService } from '../../shared/services/dialog-service';
 
 @Component({
     selector: 'app-edit-account',
@@ -29,7 +30,8 @@ export class EditAccount {
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
         private fb: FormBuilder,
-        private router: Router
+        private router: Router,
+        private dialogService: DialogService
     ) {}
 
     async ngOnInit() {
@@ -71,6 +73,12 @@ export class EditAccount {
                 password: updateAccount,
             }
         );
+
+        if (response?.is_success) {
+            this.dialogService.showToastMessage(true, 'Success', 'Add account successfully', true);
+        } else {
+            this.dialogService.showToastMessage(true, 'Failed', 'Something error', false);
+        }
     }
 
     private async init() {
