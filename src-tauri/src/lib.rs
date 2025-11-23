@@ -33,7 +33,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             init_google_sheet_command,
             add_account,
-            get_accounts
+            get_accounts,
+            delete_account
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -171,3 +171,12 @@
         </button>
     </div>
 </div>
+
+@if(isShowQuestionDialog){
+<app-question-cancel-dialog
+    (close)="onShowQuestionDialogClose($event)"
+    [isSuccess]="false"
+    [message]="'delete'"
+    [title]="'delete'"
+></app-question-cancel-dialog>
+}

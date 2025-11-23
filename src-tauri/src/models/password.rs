@@ -7,5 +7,5 @@ pub struct Password {
     pub user_name: String,
     pub password: String,
     pub note: String,
-    pub saltBase64: String,
+    pub salt_base64: String,
 }

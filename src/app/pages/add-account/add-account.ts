@@ -63,10 +63,6 @@ export class AddAccount {
         const response = await this.tauriCommandSerivce.invokeCommand<ResponseCommand>(
             TauriCommandSerivce.ADD_ACCOUNT,
             {
-                sheetName: this.spreadsheetConfigStore.workingSheet().title,
-                spreadsheetId: this.spreadsheetConfigStore.spreadSheetId(),
-            },
-            {
                 password: addAccount,
                 passcode: this.savedPassCode,
             }

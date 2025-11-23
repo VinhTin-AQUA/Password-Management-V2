@@ -1,5 +1,4 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { QuestionCancelDialogStore } from '../../stores/question-cancel-dialog.store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DialogService } from '../../services/dialog-service';
 import { CommonModule } from '@angular/common';
@@ -11,22 +10,19 @@ import { CommonModule } from '@angular/common';
     styleUrl: './question-cancel-dialog.scss',
 })
 export class QuestionCancelDialog {
-    questionCancelDialogStore = inject(QuestionCancelDialogStore);
+    @Input() title: string = 'Xác nhận';
+    @Input() message: string = 'Bạn có chắc chắn?';
+    @Input() isSuccess: boolean = false;
 
-    @Output() confirm = new EventEmitter<void>();
+    @Output() close = new EventEmitter<boolean>();
 
     constructor(private dialogService: DialogService) {}
 
-    onConfirm(): void {
-        this.confirm.emit();
-        this.close();
+    onCancel() {
+        this.close.emit(false);
     }
 
-    onCancel(): void {
-        this.dialogService.showQuestionCancelDialog(false, '', '', true);
-    }
-
-    close(): void {
-        this.dialogService.showQuestionCancelDialog(false, '', '', true);
+    onOK() {
+        this.close.emit(true);
     }
 }

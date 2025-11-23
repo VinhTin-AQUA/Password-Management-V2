@@ -4,32 +4,32 @@
     <div
         class="overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-300 ease-out w-full max-w-md mx-4 scale-100 opacity-100"
         [ngClass]="{
-            'bg-red-100': !questionCancelDialogStore.isSuccess(),
-            'bg-white': questionCancelDialogStore.isSuccess()
+            'bg-red-100': !isSuccess,
+            'bg-white': isSuccess
         }"
     >
         <!-- Header -->
         <div
             class="p-6 border-b border-gray-100"
-            [ngClass]="{ 'bg-red-200': !questionCancelDialogStore.isSuccess(),
+            [ngClass]="{ 'bg-red-200': !isSuccess,
          }"
         >
             <div class="flex items-center justify-between">
                 <h3
                     class="text-xl font-semibold"
                     [ngClass]="{
-                        'text-red-600': !questionCancelDialogStore.isSuccess(),
-                        'text-gray-900': questionCancelDialogStore.isSuccess()
+                        'text-red-600': !isSuccess,
+                        'text-gray-900': isSuccess
                     }"
                 >
-                    {{ questionCancelDialogStore.title() | translate }}
+                    {{ title | translate }}
                 </h3>
                 <button
                     (click)="onCancel()"
                     class="transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100"
                     [ngClass]="{
-                        'text-red-400 hover:text-red-600': !questionCancelDialogStore.isSuccess(),
-                        'text-gray-600 hover:text-gray-900': questionCancelDialogStore.isSuccess()
+                        'text-red-400 hover:text-red-600': !isSuccess,
+                        'text-gray-600 hover:text-gray-900': isSuccess
                     }"
                 >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,11 +49,11 @@
             <p
                 class="leading-relaxed"
                 [ngClass]="{
-                    'text-red-600': !questionCancelDialogStore.isSuccess(),
-                    'text-gray-600': questionCancelDialogStore.isSuccess()
+                    'text-red-600': !isSuccess,
+                    'text-gray-600': isSuccess
                 }"
             >
-                {{ questionCancelDialogStore.message() | translate }}
+                {{ message | translate }}
             </p>
         </div>
 
@@ -67,13 +67,11 @@
                     {{ 'cancel' | translate }}
                 </button>
                 <button
-                    (click)="onConfirm()"
+                    (click)="onOK()"
                     class="px-6 py-2.5 text-white bg-linear-to-r rounded-xl transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
                     [ngClass]="{
-                        'from-red-500 to-red-600 hover:from-red-600 hover:to-red-700':
-                            !questionCancelDialogStore.isSuccess(),
-                        'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700':
-                            questionCancelDialogStore.isSuccess()
+                        'from-red-500 to-red-600 hover:from-red-600 hover:to-red-700': !isSuccess,
+                        'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700': isSuccess
                     }"
                 >
                     {{ 'ok' | translate }}

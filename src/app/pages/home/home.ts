@@ -2,16 +2,16 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
-import { DialogService } from '../../shared/services/dialog-service';
 import { AccountModel } from './models/account,model';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { StoreHelper } from '../../shared/helpers/store-helper';
 import { SettingKeys } from '../../core/enums/setting-keys';
+import { QuestionCancelDialog } from '../../shared/components/question-cancel-dialog/question-cancel-dialog';
 
 @Component({
     selector: 'app-home',
-    imports: [RouterLink, ClickOutsideDirective],
+    imports: [RouterLink, ClickOutsideDirective, QuestionCancelDialog],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })
@@ -23,12 +23,11 @@ export class Home {
     mainRoutes = MainRoutes;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     savedPassCode: string | undefined = undefined;
+    isShowQuestionDialog: boolean = false;
 
-    constructor(
-        private router: Router,
-        private dialogService: DialogService,
-        private tauriCommandSerivce: TauriCommandSerivce
-    ) {}
+    idToDelete: string | null = null;
+
+    constructor(private router: Router, private tauriCommandSerivce: TauriCommandSerivce) {}
 
     async ngOnInit() {
         await this.getSavedPasscode();
@@ -55,13 +54,27 @@ export class Home {
         this.openMenu = null;
     }
 
-    onDelete(acc: any, event: Event) {
+    async onDelete(acc: AccountModel, event: Event) {
         event.preventDefault();
         event.stopPropagation();
-        console.log('Delete', acc);
         this.openMenu = null;
+        this.isShowQuestionDialog = true;
+        this.idToDelete = acc.id;
+    }
 
-        this.dialogService.showQuestionCancelDialog(true, 'delete', 'delete', false);
+    async onShowQuestionDialogClose(result: boolean) {
+        this.isShowQuestionDialog = false;
+
+        if (!result) {
+            this.idToDelete = null;
+            return;
+        }
+
+        if (this.idToDelete) {
+            this.tauriCommandSerivce.invokeCommand(TauriCommandSerivce.DELETE_ACCOUNT, {
+                id: this.idToDelete,
+            });
+        }
     }
 
     toggleSpeedDial() {
@@ -79,10 +92,6 @@ export class Home {
     private async getAccounts() {
         const r = await this.tauriCommandSerivce.invokeCommand<AccountModel[]>(
             TauriCommandSerivce.GET_ACCOUNTS,
-            {
-                sheetName: this.spreadsheetConfigStore.workingSheet().title,
-                spreadsheetId: this.spreadsheetConfigStore.spreadSheetId(),
-            },
             {
                 passcode: this.savedPassCode,
             }

@@ -58,3 +58,22 @@ pub async fn get_accounts(
         .map_err(|e| e.to_string());
     t
 }
+
+#[command]
+pub async fn delete_account(
+    state: State<'_, Mutex<AppState>>,
+    sheet_name: String,
+    spreadsheet_id: String,
+    id: String,
+) -> Result<Option<bool>, String> {
+    let mut state_guard = state.lock().await;
+    let google_service = &mut state_guard.google_sheet_service;
+
+    let t: Result<Option<bool>, String> = google_service
+        .lock()
+        .await
+        .delete_account(sheet_name, spreadsheet_id, id)
+        .await
+        .map_err(|e| e.to_string());
+    t
+}

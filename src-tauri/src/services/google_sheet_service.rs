@@ -151,6 +151,74 @@ impl GoogleSheetsService {
         Ok(Some(grouped))
     }
 
+    pub async fn delete_account(
+        &mut self,
+        sheet_name: String,
+        spreadsheet_id: String,
+        id: String,
+    ) -> anyhow::Result<Option<bool>> {
+        let range = format!("{}!A:F", urlencoding::encode(sheet_name.as_str()));
+        let read_url = format!("{}/{}/values/{}", Self::BASE_API, spreadsheet_id, range);
+
+        let res = self
+            .client
+            .get(read_url)
+            .bearer_auth(self.access_token.as_str())
+            .send()
+            .await?
+            .json::<Value>()
+            .await?;
+
+        let Some(values) = res.get("values").and_then(|v| v.as_array()) else {
+            return Ok(Some(true));
+        };
+
+        // --- 2. Tìm các hàng cần xóa ---
+        let mut rows_to_delete = vec![];
+        for (i, row) in values.iter().enumerate() {
+            if row.get(0).map_or(false, |v| v == id.as_str()) {
+                // ví dụ cột B = "abc"
+                rows_to_delete.push(i);
+            }
+        }
+
+        println!("{:#?}", id);
+        println!("{:#?}", rows_to_delete);
+
+        // Quan trọng: xóa từ cuối lên đầu
+        rows_to_delete.reverse();
+
+        // --- 3. Gửi batchUpdate để xóa ---
+        let requests: Vec<_> = rows_to_delete
+            .iter()
+            .map(|&row_index| {
+                json!({
+                    "deleteDimension": {
+                        "range": {
+                            "sheetId": 0,
+                            "dimension": "ROWS",
+                            "startIndex": row_index,
+                            "endIndex": row_index + 1
+                        }
+                    }
+                })
+            })
+            .collect();
+
+        let body = json!({ "requests": requests });
+        let batch_url: String = format!("{}/{}:batchUpdate", Self::BASE_API, spreadsheet_id);
+
+        let resp = self
+            .client
+            .post(&batch_url)
+            .bearer_auth(self.access_token.as_str())
+            .json(&body)
+            .send()
+            .await?;
+
+        Ok(Some(true))
+    }
+
     /* private methods */
 
     fn get_jwt(json_path: &str) -> anyhow::Result<String> {
@@ -205,8 +273,6 @@ impl GoogleSheetsService {
         };
         let mut map: Vec<Password> = Vec::new();
 
-        println!("{:#?}", values_array);
-
         // Bỏ qua dòng tiêu đề
         for row_value in values_array.iter().skip(2) {
             let Some(row) = row_value.as_array() else {
@@ -243,14 +309,11 @@ impl GoogleSheetsService {
                 user_name: user_name.unwrap_or("Failed to decrypt".to_string()),
                 password: password.unwrap_or("Failed to decrypt".to_string()),
                 note: note.unwrap_or("Failed to decrypt".to_string()),
-                saltBase64: salt_base64.to_string(),
+                salt_base64: salt_base64.to_string(),
             };
 
-             println!("{:#?}", item);
             map.push(item);
         }
-
-        println!("{:#?}", map);
 
         map
     }

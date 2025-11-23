@@ -135,9 +135,8 @@ export class Config {
 
         const r = await this.tauriCommandSerivce.invokeCommand<any>(
             TauriCommandSerivce.INIT_GOOGLE_SHEET_COMMAND,
-            { sheetName: '', spreadsheetId: '' },
             { jsonPath: credentialPath }
         );
         return r !== null;
     }
-} 
+}
