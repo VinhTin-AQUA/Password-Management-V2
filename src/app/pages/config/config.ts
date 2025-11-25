@@ -94,15 +94,16 @@ export class Config {
     private async init() {
         const checkFileExists = await this.checkConfig();
         if (!checkFileExists) {
+            this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.Config}`);
             return;
         }
 
         const checkInit = await this.initGoogleSheetService();
-        if (!checkInit) {
+        if (checkInit) {
+            this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.Login}`);
             return;
         }
-
-        this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.Login}`);
+        this.router.navigateByUrl(`/${AUTH_ROUTE}/${AuthRoutes.Config}`);
     }
 
     private async checkConfig(): Promise<boolean> {

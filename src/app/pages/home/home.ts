@@ -30,8 +30,8 @@ export class Home {
     constructor(private router: Router, private tauriCommandSerivce: TauriCommandSerivce) {}
 
     async ngOnInit() {
-        await this.getSavedPasscode();
-        await this.getAccounts();
+        // await this.getSavedPasscode();
+        // await this.getAccounts();
     }
 
     toggleMenu(i: number, event: Event) {

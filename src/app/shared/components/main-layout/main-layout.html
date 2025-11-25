@@ -1,16 +1,16 @@
-<div class="layout font-sans text-gray-800 dark:text-gray-200">
+<div class="layout ">
     <!-- Header -->
     <header
-        class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300"
+        class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 text-foreground bg-backgroud backdrop-blur-md border-b border-border shadow-sm transition-colors duration-300"
     >
         <div class="flex items-center gap-3">
             <!-- Menu button -->
             <button
                 (click)="toggleDrawer()"
-                class="p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                class="p-2 rounded-lg text-foreground hover:bg-backgroud-hover transition-colors duration-200"
             >
                 <svg
-                    class="w-6 h-6"
+                    class="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -107,7 +107,7 @@
 
     <!-- Main content -->
     <main
-        class="pt-20 px-4 pb-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300"
+        class="pt-20 px-4 pb-4  min-h-screen transition-colors duration-300"
     >
         <router-outlet></router-outlet>
     </main>

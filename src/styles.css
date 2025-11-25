@@ -1,3 +1,40 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
+@theme inline {
+    --color-backgroud: var(--backgroud);
+    --color-backgroud-hover: var(--backgroud-hover);
+
+    --color-foreground: var(--foreground);
+    --color-border: var(--border-color);
+
+}
+
+@layer base {
+    /* :root {
+        --backgroud: oklch(21% 0.034 264.665);
+    } */
+
+    [data-theme='light'] {
+        --backgroud: var(--color-white);
+        --backgroud-active: var(--color-blue-700);
+        --backgroud-hover: var(--color-gray-100);
+
+        --foreground: var(--color-gray-800);
+        --foreground-active: var(--color-gray-900);
+
+        --border-color: var(--color-gray-200);
+    }
+
+    [data-theme='dark'] {
+        --backgroud: var(--color-gray-900);
+        --backgroud-active: var(--color-blue-700);
+        --backgroud-hover: var(--color-gray-800);
+
+        --foreground: var(--color-gray-200);
+        --foreground-active: var(--color-white);
+
+        --border-color: var(--color-gray-700);
+    }
+}

@@ -16,6 +16,7 @@ export class Login {
     password = '';
     savedPassCode: string | undefined = undefined;
     errorMessage: string = '';
+    showPassword: boolean = false;
 
     constructor(private router: Router) {}
 
