@@ -1,13 +1,13 @@
 <div class="layout">
     <!-- Header -->
     <header
-        class="bg-surface text-primary border-base fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md border-b shadow-sm transition-colors duration-300"
+        class="bg-primary text-primary border-base fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md border-b shadow-sm transition-colors duration-300"
     >
         <div class="flex items-center gap-3">
             <!-- Menu button -->
             <button
                 (click)="toggleDrawer()"
-                class="text-primary hover:bg-surface-hover p-2 rounded-lg transition-colors duration-200"
+                class="text-primary hover:bg-primary-hover p-2 rounded-lg transition-colors duration-200"
             >
                 <svg
                     class="w-5 h-5"
@@ -48,14 +48,14 @@
     <!-- Drawer overlay -->
     @if (isDrawerOpen) {
     <div
-        class="bg-surface opacity-40 fixed inset-0 z-40 transition-opacity duration-300"
+        class="bg-primary opacity-40 fixed inset-0 z-40 transition-opacity duration-300"
         (click)="toggleDrawer()"
     ></div>
     }
 
     <!-- Drawer sidebar -->
     <nav
-        class="bg-surface border-primary fixed top-0 left-0 z-50 h-screen w-64 border-r shadow-lg transform transition-transform duration-300 ease-in-out rounded-r-2xl"
+        class="bg-primary border-primary fixed top-0 left-0 z-50 h-screen w-64 border-r shadow-lg transform transition-transform duration-300 ease-in-out rounded-r-2xl"
         [class.translate-x-0]="isDrawerOpen"
         [class.-translate-x-full]="!isDrawerOpen"
     >
@@ -63,7 +63,7 @@
             <h5 class="text-primary text-sm font-semibold uppercase tracking-wider">Menu</h5>
             <button
                 (click)="toggleDrawer()"
-                class="text-primary hover:bg-surface-hover p-2 rounded transition-colors duration-200"
+                class="text-primary hover:bg-primary-hover p-2 rounded transition-colors duration-200"
             >
                 <svg
                     class="w-5 h-5"
@@ -85,9 +85,9 @@
             <li>
                 <a
                     [routerLink]="item.url"
-                    routerLinkActive="bg-surface-active text-primary text-primary-active font-medium"
+                    routerLinkActive="bg-primary-active text-primary text-primary-active font-medium"
                     [routerLinkActiveOptions]="{ exact: true }"
-                    class="text-primary hover:bg-surface-hover flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200"
+                    class="text-primary hover:bg-primary-hover flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200"
                 >
                     <span>{{ item.name | translate }}</span>
                 </a>

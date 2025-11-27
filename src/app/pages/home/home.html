@@ -1,4 +1,4 @@
-<div class="p-4 space-y-4 font-sans text-gray-800 dark:text-gray-200 ">
+<div class="text-primary p-4 space-y-4 font-sans">
     @if (accounts().length ===0) {
     <div class="text-center text-2xl dark:text-gray-200">
         <span>No account</span>
@@ -14,18 +14,14 @@
     >
         <!-- Left -->
         <div class="flex flex-col">
-            <span class="font-semibold text-gray-800 dark:text-gray-200 text-base">{{
-                acc.account_name
-            }}</span>
-            <span class="text-sm text-gray-500 dark:text-gray-400 truncate">{{
-                acc.user_name
-            }}</span>
+            <span class="text-primary font-semibold text-base">{{ acc.account_name }}</span>
+            <span class="text-primary text-sm truncate">{{ acc.user_name }}</span>
         </div>
 
         <!-- Right - context trigger -->
         <div class="relative">
             <button
-                class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 transition"
+                class="p-2 rounded-full hover:bg-primary-hover active:bg-primary-active transition"
                 (click)="toggleMenu($index, $event)"
             >
                 <!-- three-dots icon -->
@@ -35,7 +31,7 @@
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="w-6 h-6 text-gray-600 dark:text-gray-300"
+                    class="text-primary w-6 h-6"
                 >
                     <path
                         stroke-linecap="round"
@@ -48,10 +44,10 @@
             <!-- Context Menu -->
             @if(openMenu === $index) {
             <div
-                class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 shadow-xl rounded-xl border border-gray-100 dark:border-gray-600 z-20 scale-95 opacity-0 animate-scale-fade"
+                class="bg-primary border-primary absolute right-0 mt-2 w-40 shadow-xl rounded-xl border z-20 scale-95 opacity-0 animate-scale-fade"
             >
                 <button
-                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm transition"
+                    class="hover:bg-primary-hover w-full text-left px-4 py-2 text-sm transition"
                     (click)="onCopy(acc, $event)"
                 >
                     📋 Copy Pass
@@ -78,7 +74,7 @@
         <div class="flex flex-col items-center mb-4 space-y-3 transition-all duration-300">
             <!-- SHARE -->
             <button
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active border-primary flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
                 <svg
                     class="w-6 h-6"
@@ -94,14 +90,14 @@
                     />
                 </svg>
                 <span
-                    class="absolute right-14 px-2 py-1 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    class="text-primary absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Share</span
                 >
             </button>
 
             <!-- PRINT -->
             <button
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -111,14 +107,14 @@
                     />
                 </svg>
                 <span
-                    class="absolute right-14 px-2 py-1 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Print</span
                 >
             </button>
 
             <!-- DOWNLOAD -->
             <button
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -129,7 +125,7 @@
                     />
                 </svg>
                 <span
-                    class="absolute right-14 px-2 py-1 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Download</span
                 >
             </button>
@@ -137,7 +133,7 @@
             <!-- COPY -->
             <button
                 routerLink="/main/add-account"
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active border-primary flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
                 <svg
                     width="24"
@@ -152,7 +148,7 @@
                     />
                 </svg>
                 <span
-                    class="absolute right-14 px-2 py-1 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Copy</span
                 >
             </button>
@@ -161,7 +157,7 @@
 
         <!-- FAB BUTTON -->
         <button
-            class="flex items-center justify-center w-14 h-14 rounded-full bg-black dark:bg-blue-600 text-white shadow-md border border-gray-200 dark:border-gray-600 hover:bg-gray-900 dark:hover:bg-blue-700 active:scale-95 transition transform"
+            class="button-primary hover:button-primary-hover active:button-primary-active text-primary border-primary flex items-center justify-center w-14 h-14 rounded-full shadow-md border active:scale-95 transition transform"
             (click)="toggleSpeedDial()"
         >
             <svg

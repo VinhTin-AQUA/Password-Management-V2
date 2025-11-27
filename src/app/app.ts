@@ -12,7 +12,7 @@ import { SpreadsheetConfigModel } from './shared/models/spreadsheet-config';
 import { join } from '@tauri-apps/api/path';
 import { exists } from '@tauri-apps/plugin-fs';
 import { StoreHelper } from './shared/helpers/store-helper';
-import { Toast } from "./shared/components/toast/toast";
+import { Toast } from './shared/components/toast/toast';
 
 @Component({
     selector: 'app-root',
@@ -64,6 +64,3 @@ export class App {
         // this.languageService.use(code);
     }
 }
-
-
-

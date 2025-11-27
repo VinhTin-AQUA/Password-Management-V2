@@ -50,7 +50,7 @@ export class Home {
 
     onUpdate(acc: AccountModel) {
         this.updateAccountStore.update(acc);
-        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.EditAccount}`)
+        this.router.navigateByUrl(`/${MAIN_ROUTE}/${MainRoutes.EditAccount}`);
     }
 
     async onDelete(acc: AccountModel, event: Event) {

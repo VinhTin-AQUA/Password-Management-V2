@@ -2,17 +2,17 @@
 
 @layer utilities {
     /* ============ background ============ */
-    .bg-surface {
+    .bg-primary {
         background-color: var(--color-surface);
     }
 
-    .bg-surface-hover,
-    .hover\:bg-surface-hover:hover {
+    .bg-primary-hover,
+    .hover\:bg-primary-hover:hover {
         background-color: var(--color-surface-hover);
     }
 
-    .bg-surface-active,
-    .active\:bg-surface-active:active {
+    .bg-primary-active,
+    .active\:bg-primary-active:active {
         background-color: var(--color-surface-active);
     }
 
@@ -45,6 +45,24 @@
     .active\:border-primary-active:active {
         color: var(--color-border-active);
     }
+
+    /* ============ button ============ */
+    .button-primary {
+        background-color: var(--bg-button-primary);
+        color: var(--text-button-primary);
+    }
+
+    .button-primary-hover,
+    .hover\:button-primary-hover:hover {
+        background-color: var(--bg-button-primary-hover);
+        color: var(--text-button-primary-hover);
+    }
+
+    .button-primary-active,
+    .active\:button-primary-active:active {
+        background-color: var(--bg-button-primary-active);
+        color: var(--text-button-primary-active);
+    }
 }
 
 @layer base {
@@ -63,6 +81,14 @@
         --color-border: var(--color-gray-200);
         --color-border-hover: var(--color-blue-700);
         --color-border-active: var(--color-blue-700);
+
+        /* ============ button ============ */
+        --bg-button-primary: var(--color-blue-800);
+        --bg-button-primary-hover: var(--color-blue-700);
+        --bg-button-primary-active: var(--color-blue-900);
+        --text-button-primary: var(--color-white);
+        --text-button-primary-hover: var(--color-white);
+        --text-button-primary-active: var(--color-white);
     }
 
     [data-theme='dark'] {
@@ -80,5 +106,13 @@
         --color-border: var(--color-gray-700);
         --color-border-hover: var(--color-blue-200);
         --color-border-active: var(--color-blue-200);
+
+        /* ============ button ============ */
+        --bg-button-primary: var(--color-blue-800);
+        --bg-button-primary-hover: var(--color-blue-700);
+        --bg-button-primary-active: var(--color-blue-900);
+        --text-button-primary: var(--color-white);
+        --text-button-primary-hover: var(--color-white);
+        --text-button-primary-active: var(--color-white);
     }
 }

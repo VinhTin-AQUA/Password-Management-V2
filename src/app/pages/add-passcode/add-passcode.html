@@ -6,7 +6,7 @@
     </div>
 
     <form [formGroup]="form">
-        <div class="bg-surface p-4 rounded-2xl shadow-sm space-y-4">
+        <div class="bg-primary p-4 rounded-2xl shadow-sm space-y-4">
             <!-- passcode -->
             <div>
                 <label class="text-primary block text-sm font-medium mb-1">
@@ -124,7 +124,7 @@
 
             <!-- Submit button -->
             <button
-                class="bg-surface hover:bg-surface-hover text-primary w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
+                class="button-primary hover:button-primary-hover active:button-primary-active w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
                 (click)="save()"
             >
                 {{ 'addPasscodeForm.addPasscode' | translate }}

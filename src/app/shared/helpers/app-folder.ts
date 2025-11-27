@@ -15,7 +15,7 @@ export class AppFolderHelper {
         const configDirExists = await exists(folder, {
             baseDir: BaseDirectory.AppLocalData,
         });
-        
+
         if (!configDirExists) {
             await mkdir(folder, {
                 baseDir: BaseDirectory.AppLocalData,

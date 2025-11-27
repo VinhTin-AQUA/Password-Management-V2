@@ -1,6 +1,6 @@
 use aes_gcm::aead::{Aead, KeyInit};
 use aes_gcm::{Aes256Gcm, Key, Nonce}; // AES-GCM
-use argon2::{Argon2};
+use argon2::Argon2;
 use base64::{engine::general_purpose, Engine as _};
 use rand::RngCore;
 

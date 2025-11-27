@@ -28,7 +28,6 @@ export class MainLayout {
             },
         ];
 
-        
         this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
             if (this.isDrawerOpen) {
                 this.toggleDrawer();

@@ -1,10 +1,10 @@
 <div
-    class="bg-surface text-primary min-h-screen flex flex-col justify-center items-center px-6 font-sans"
+    class="bg-primary text-primary min-h-screen flex flex-col justify-center items-center px-6 font-sans"
 >
     <!-- Card -->
     <form [formGroup]="configForm">
         <div
-            class="bg-surface w-full max-w-md p-6 rounded-2xl shadow-lg space-y-6 animate-scale-fade"
+            class="bg-primary w-full max-w-md p-6 rounded-2xl shadow-lg space-y-6 animate-scale-fade"
         >
             <!-- Title -->
             <h1 class="text-2xl font-semibold text-center">{{ 'config' | translate }}</h1>
@@ -16,7 +16,7 @@
                     formControlName="spreadSheetUrl"
                     type="text"
                     (input)="onSpreadSheetUrlChange($event)"
-                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder="https://example.excel.com"
                 />
                 @if(submitted && configForm.get('spreadSheetUrl')?.invalid) {
@@ -33,7 +33,7 @@
                     formControlName="spreadSheetId"
                     readonly
                     type="text"
-                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if (submitted && configForm.get('spreadSheetId')?.invalid) {
@@ -48,7 +48,7 @@
                     type="file"
                     (change)="onSelectFile($event)"
                     accept=".json"
-                    class="border-primary bg-surface w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
+                    class="border-primary bg-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition"
                     placeholder=""
                 />
                 @if(submitted && !selectedFile) {
@@ -59,7 +59,7 @@
             <!-- Save Button -->
             <button
                 (click)="saveConfig()"
-                class="bg-surface text-primary w-full py-3 rounded-xl font-medium shadow-sm hover:shadow-md active:scale-95 transition"
+                class="button-primary hover:button-primary-hover active:button-primary-active w-full py-3 rounded-xl font-medium shadow-sm hover:shadow-md active:scale-95 transition"
             >
                 {{ 'saveConfig' | translate }}
             </button>

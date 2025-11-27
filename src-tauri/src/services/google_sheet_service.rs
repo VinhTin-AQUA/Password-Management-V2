@@ -276,7 +276,7 @@ impl GoogleSheetsService {
             "majorDimension": "ROWS",
             "values": [
                 [
-                    password.id.as_str(), 
+                    password.id.as_str(),
                     password.account_name.as_str(),
                     encrypt_data(passcode.as_str(), password.user_name.as_str(), salt),
                     encrypt_data(passcode.as_str(), password.password.as_str(),salt),

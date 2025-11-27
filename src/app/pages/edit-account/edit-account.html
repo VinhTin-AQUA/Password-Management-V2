@@ -4,7 +4,7 @@
     </h2>
 
     <form [formGroup]="form">
-        <div class="bg-surface p-4 rounded-2xl shadow-sm space-y-4">
+        <div class="bg-primary p-4 rounded-2xl shadow-sm space-y-4">
             <!-- accountNameIsEmpty -->
             <div>
                 <label class="text-primary block text-sm font-medium mb-1">
@@ -169,7 +169,7 @@
 
             <!-- Submit button -->
             <button
-                class="bg-surface hover:bg-surface-hover text-primary w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
+                class="bg-primary hover:bg-primary-hover text-primary w-full py-3 rounded-xl shadow-md active:scale-[0.97] transition transform font-medium"
                 (click)="save()"
             >
                 {{ 'saveAccount' | translate }}

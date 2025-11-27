@@ -2,7 +2,7 @@
     display: block;
 }
 
-// Custom scrollbar
+/* Custom scrollbar */
 .custom-scrollbar {
     &::-webkit-scrollbar {
         width: 6px;
@@ -23,7 +23,7 @@
     }
 }
 
-// Animation classes (compatible with Tailwind)
+/* Animation classes (compatible with Tailwind) */
 .animate-in {
     animation-duration: 200ms;
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

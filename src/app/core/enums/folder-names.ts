@@ -1,4 +1,3 @@
-
 export enum EAppFolderNames {
     DataDir = '',
     ConfigDir = 'Configs',

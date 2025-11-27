@@ -21,12 +21,12 @@ export class Login {
     constructor(private router: Router) {}
 
     ngOnInit() {
-        this.Init();
+        // this.Init();
     }
 
     onLogin() {
         if (this.savedPassCode !== this.password) {
-            this.errorMessage = "addPasscodeForm.passcodeIsNotValid"
+            this.errorMessage = 'addPasscodeForm.passcodeIsNotValid';
             return;
         }
 

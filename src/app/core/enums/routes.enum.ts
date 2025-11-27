@@ -4,7 +4,7 @@ export const MAIN_ROUTE = 'main';
 export enum AuthRoutes {
     Login = 'login',
     Config = 'config',
-    AddPasscode = 'add-passcode'
+    AddPasscode = 'add-passcode',
 }
 
 export enum MainRoutes {
