@@ -8,9 +8,9 @@
     <!-- Icon -->
     <div class="text-2xl">
         @if(toastMessageStore.isSuccess()) {
-        <ng-container>✔️</ng-container>
+        <ng-container><app-icon name="check"></app-icon></ng-container>
         } @else {
-        <ng-container>❌</ng-container>
+        <ng-container><app-icon name="xmark"></app-icon></ng-container>
         }
     </div>
 
@@ -21,5 +21,7 @@
     </div>
 
     <!-- nút x -->
-    <button (click)="hide()" class="text-white text-xl hover:opacity-70">×</button>
+    <button (click)="hide()" class="text-white text-xl hover:opacity-70">
+        <app-icon name="xmark-circle"></app-icon>
+    </button>
 </div>

@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { AccountModel } from '../../shared/models/account-model';
 import { DialogService } from '../../shared/services/dialog-service';
+import { Icon } from '../../shared/components/icon/icon';
 
 @Component({
     selector: 'app-add-account',
-    imports: [TranslatePipe, ReactiveFormsModule],
+    imports: [TranslatePipe, ReactiveFormsModule, Icon],
     templateUrl: './add-account.html',
     styleUrl: './add-account.scss',
 })

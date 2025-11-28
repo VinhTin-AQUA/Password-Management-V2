@@ -9,10 +9,11 @@ import { SettingKeys } from '../../core/enums/setting-keys';
 import { QuestionCancelDialog } from '../../shared/components/question-cancel-dialog/question-cancel-dialog';
 import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
+import { Icon } from '../../shared/components/icon/icon';
 
 @Component({
     selector: 'app-home',
-    imports: [RouterLink, ClickOutsideDirective, QuestionCancelDialog],
+    imports: [RouterLink, ClickOutsideDirective, QuestionCancelDialog, Icon],
     templateUrl: './home.html',
     styleUrl: './home.scss',
 })

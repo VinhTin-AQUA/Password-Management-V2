@@ -8,9 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
+import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { SpreadSheetHelper } from '../../shared/helpers/spread-sheet-helper';
-import { ConfigModel } from './models/config-model';
 import { SpreadsheetConfigModel } from '../../shared/models/spreadsheet-config';
 import { SpreadsheetConfigService } from '../../shared/services/config-service';
 import { AppFolderHelper } from '../../shared/helpers/app-folder';

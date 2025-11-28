@@ -6,10 +6,11 @@ import { StoreHelper } from '../../shared/helpers/store-helper';
 import { SettingKeys } from '../../core/enums/setting-keys';
 import { MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
+import { Icon } from '../../shared/components/icon/icon';
 
 @Component({
     selector: 'app-add-passcode',
-    imports: [ReactiveFormsModule, TranslatePipe],
+    imports: [ReactiveFormsModule, TranslatePipe, Icon],
     templateUrl: './add-passcode.html',
     styleUrl: './add-passcode.scss',
 })

@@ -11,10 +11,11 @@ import { ResponseCommand } from '../../shared/models/response-command';
 import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { DialogService } from '../../shared/services/dialog-service';
+import { Icon } from '../../shared/components/icon/icon';
 
 @Component({
     selector: 'app-edit-account',
-    imports: [TranslatePipe, ReactiveFormsModule],
+    imports: [TranslatePipe, ReactiveFormsModule, Icon],
     templateUrl: './edit-account.html',
     styleUrl: './edit-account.scss',
 })

@@ -5,10 +5,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AUTH_ROUTE, AuthRoutes, MAIN_ROUTE, MainRoutes } from '../../core/enums/routes.enum';
 import { StoreHelper } from '../../shared/helpers/store-helper';
 import { SettingKeys } from '../../core/enums/setting-keys';
+import { Icon } from "../../shared/components/icon/icon";
 
 @Component({
     selector: 'app-login',
-    imports: [FormsModule, TranslatePipe],
+    imports: [FormsModule, TranslatePipe, Icon],
     templateUrl: './login.html',
     styleUrl: './login.scss',
 })

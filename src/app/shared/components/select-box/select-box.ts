@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { Icon } from '../icon/icon';
 
 export interface SelectOption {
     value: any;
@@ -10,7 +11,7 @@ export interface SelectOption {
 
 @Component({
     selector: 'app-select-box',
-    imports: [ClickOutsideDirective],
+    imports: [ClickOutsideDirective, Icon],
     templateUrl: './select-box.html',
     styleUrl: './select-box.scss',
 })
