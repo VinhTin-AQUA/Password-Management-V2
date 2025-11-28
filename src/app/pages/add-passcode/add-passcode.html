@@ -9,28 +9,11 @@
         <div class="bg-primary p-4 rounded-2xl shadow-sm space-y-4">
             <!-- passcode -->
             <div>
-                <label class="text-primary block text-sm font-medium mb-1">
-                    {{ 'addPasscodeForm.passcode' | translate }}
-                </label>
-                <div class="relative">
-                    <input
-                        [type]="showPasscode ? 'text' : 'password'"
-                        formControlName="passcode"
-                        class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
-                        placeholder="*****************"
-                    />
-                    <button
-                        type="button"
-                        class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
-                        (click)="showPasscode = !showPasscode"
-                    >
-                        @if(!showPasscode){
-                        <app-icon name="eye"></app-icon>
-                        } @if(showPasscode){
-                        <app-icon name="eye-slash"></app-icon>
-                        }
-                    </button>
-                </div>
+                <app-password-input
+                    label="addPasscodeForm.passcode"
+                    formControlName="passcode"
+                    placeholder="*****************"
+                ></app-password-input>
 
                 @if (submitted && form.get('passcode')?.invalid) {
                 <span class="text-red-500">{{ 'addAccountForm.passwordIsEmpty' | translate }}</span>
@@ -39,28 +22,11 @@
 
             <!-- Confirm Password -->
             <div>
-                <label class="text-primary block text-sm font-medium mb-1">
-                    {{ 'addPasscodeForm.confirmPasscode' | translate }}
-                </label>
-                <div class="relative">
-                    <input
-                        [type]="showPasscode ? 'text' : 'password'"
-                        formControlName="confirmPasscode"
-                        class="text-primary border-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
-                        placeholder="*****************"
-                    />
-                    <button
-                        type="button"
-                        class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
-                        (click)="showPasscode = !showPasscode"
-                    >
-                        @if(!showPasscode){
-                        <app-icon name="eye"></app-icon>
-                        } @if(showPasscode){
-                        <app-icon name="eye-slash"></app-icon>
-                        }
-                    </button>
-                </div>
+                <app-password-input
+                    label="addPasscodeForm.confirmPasscode"
+                    formControlName="confirmPasscode"
+                    placeholder="*****************"
+                ></app-password-input>
 
                 @if (submitted && form.get('passcode')?.value !==
                 form.get('confirmPasscode')?.value) {

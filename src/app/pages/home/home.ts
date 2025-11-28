@@ -10,6 +10,7 @@ import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { Icon } from '../../shared/components/icon/icon';
 import { PasscodeStore } from '../../shared/stores/passcode.store';
 import { AccountStore } from '../../shared/stores/accounts.store';
+import { DialogService } from '../../shared/services/dialog-service';
 
 @Component({
     selector: 'app-home',
@@ -22,13 +23,18 @@ export class Home {
     speedDialOpen = false;
     isShowQuestionDialog: boolean = false;
     idToDelete: string | null = null;
+    accountPaddings = [1, 2, 3];
 
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
     passCode = inject(PasscodeStore);
     accountStore = inject(AccountStore);
 
-    constructor(private router: Router, private tauriCommandSerivce: TauriCommandSerivce) {}
+    constructor(
+        private router: Router,
+        private tauriCommandSerivce: TauriCommandSerivce,
+        private dialogService: DialogService
+    ) {}
 
     async ngOnInit() {
         await this.getSavedPasscode();
@@ -70,10 +76,27 @@ export class Home {
             return;
         }
 
-        if (this.idToDelete) {
-            this.tauriCommandSerivce.invokeCommand(TauriCommandSerivce.DELETE_ACCOUNT, {
+        if (!this.idToDelete) {
+            return;
+        }
+
+        const check = await this.tauriCommandSerivce.invokeCommand<boolean>(
+            TauriCommandSerivce.DELETE_ACCOUNT,
+            {
                 id: this.idToDelete,
-            });
+            }
+        );
+
+        if (check) {
+            this.accountStore.delele(this.idToDelete);
+            this.dialogService.showToastMessage(
+                true,
+                'Success',
+                'Delete Account Successfully',
+                true
+            );
+        } else {
+            this.dialogService.showToastMessage(true, 'Failed', 'Something error', false);
         }
     }
 

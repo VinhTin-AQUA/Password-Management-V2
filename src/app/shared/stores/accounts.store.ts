@@ -21,6 +21,12 @@ export const AccountStore = signalStore(
             }));
         }
 
-        return { setAccounts };
+        function delele(id: string) {
+            patchState(store, (currentState) => ({
+                accounts: store.accounts().filter((acc) => acc.id !== id),
+            }));
+        }
+
+        return { setAccounts, delele };
     })
 );

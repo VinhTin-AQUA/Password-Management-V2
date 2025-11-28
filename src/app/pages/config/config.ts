@@ -20,10 +20,12 @@ import { EConfigFileNames } from '../../core/enums/file-names';
 import { FileHelper } from '../../shared/helpers/file-helper';
 import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-store';
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
+import { TextInput } from '../../shared/components/text-input/text-input';
+import { FileInput } from '../../shared/components/file-input/file-input';
 
 @Component({
     selector: 'app-config',
-    imports: [FormsModule, TranslatePipe, ReactiveFormsModule],
+    imports: [FormsModule, TranslatePipe, ReactiveFormsModule, TextInput, FileInput],
     templateUrl: './config.html',
     styleUrl: './config.scss',
 })

@@ -1,5 +1,5 @@
-<div class="p-4 space-y-4 font-sans">
-    @if (accountStore.accounts()) {
+<div class="p-2 px-4 space-y-4">
+    @if (accountStore.accounts().length === 0) {
     <div class="text-primary text-center text-2xl">
         <span>No account</span>
     </div>
@@ -10,7 +10,7 @@
     <div
         (click)="onUpdate(acc)"
         (clickOutside)="closeContextMenu()"
-        class="flex items-center justify-between p-4 rounded-2xl shadow-sm hover:shadow-md active:scale-[0.97] transition transform duration-200"
+        class="flex items-center justify-between rounded-2xl shadow-sm hover:shadow-md transition transform duration-200"
     >
         <!-- Left -->
         <div class="flex flex-col">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Right - context trigger -->
-        <div class="relative">
+        <div class="relative z-50">
             <button
                 class="text-primary p-2 rounded-full hover:bg-primary-hover active:bg-primary-active transition"
                 (click)="toggleMenu($index, $event)"
@@ -31,16 +31,16 @@
             <!-- Context Menu -->
             @if(openMenu === $index) {
             <div
-                class="bg-primary border-primary absolute right-0 mt-2 w-40 shadow-xl rounded-xl border z-20 scale-95 opacity-0 animate-scale-fade"
+                class="overflow-hidden border-primary absolute right-0 mt-2 w-40 shadow-xl rounded-xl border z-20 scale-95 opacity-0 animate-scale-fade"
             >
                 <button
-                    class="text-primary hover:bg-primary-hover w-full text-left px-4 py-2 text-sm transition"
+                    class="button-primary hover:button-primary-hover active:button-primary-active w-full text-left px-4 py-2 text-sm transition"
                     (click)="onCopy(acc, $event)"
                 >
                     📋 Copy Pass
                 </button>
                 <button
-                    class="w-full text-left px-4 py-2 hover:bg-red-50 dark:hover:bg-red-600 text-red-600 dark:text-red-400 text-sm transition"
+                    class="button-danger hover:button-danger-hover active:button-danger-active w-full text-left px-4 py-2 text-sm transition"
                     (click)="onDelete(acc, $event)"
                 >
                     🗑️ Delete
@@ -51,48 +51,23 @@
     </div>
     }
 
+    @for (item of accountPaddings; track $index) {
+        <div class="w-full h-5"></div>
+    }
+
     <!-- SPEED DIAL -->
     <div
         (clickOutside)="closeSpeedDial()"
-        class="fixed bottom-20 right-6 flex flex-col items-center z-50"
+        class="fixed bottom-20 right-6 flex flex-col items-center z-40"
     >
         <!-- Speed Dial Items -->
         @if (speedDialOpen) {
         <div class="flex flex-col items-center mb-4 space-y-3 transition-all duration-300">
-            <!-- SHARE -->
-            <button
-                class="button-primary hover:button-primary-hover active:button-primary-active border-primary flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
-            >
-                <svg
-                    class="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        d="M7.926 10.898 15 7.727m-7.074 5.39L15 16.29M8 12a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm12 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm0-11a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                    />
-                </svg>
-                <span
-                    class="text-primary absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    >Share</span
-                >
-            </button>
-
             <!-- PRINT -->
             <button
-                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-9 h-9 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        stroke-width="2"
-                        stroke-linejoin="round"
-                        d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"
-                    />
-                </svg>
+                <app-icon name="print"></app-icon>
                 <span
                     class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Print</span
@@ -101,39 +76,21 @@
 
             <!-- DOWNLOAD -->
             <button
-                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active flex items-center justify-center w-9 h-9 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"
-                    />
-                </svg>
+                <app-icon name="download"></app-icon>
                 <span
                     class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Download</span
                 >
             </button>
 
-            <!-- COPY -->
+            <!-- ADD -->
             <button
                 routerLink="/main/add-account"
-                class="button-primary hover:button-primary-hover active:button-primary-active border-primary flex items-center justify-center w-12 h-12 rounded-full shadow-md border active:scale-95 transition transform relative group"
+                class="button-primary hover:button-primary-hover active:button-primary-active border-primary flex items-center justify-center w-9 h-9 rounded-full shadow-md border active:scale-95 transition transform relative group"
             >
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    stroke="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M12.0002 4.875C12.6216 4.875 13.1252 5.37868 13.1252 6V10.8752H18.0007C18.622 10.8752 19.1257 11.3789 19.1257 12.0002C19.1257 12.6216 18.622 13.1252 18.0007 13.1252H13.1252V18.0007C13.1252 18.622 12.6216 19.1257 12.0002 19.1257C11.3789 19.1257 10.8752 18.622 10.8752 18.0007V13.1252H6C5.37868 13.1252 4.875 12.6216 4.875 12.0002C4.875 11.3789 5.37868 10.8752 6 10.8752H10.8752V6C10.8752 5.37868 11.3789 4.875 12.0002 4.875Z"
-                    />
-                </svg>
+                <app-icon name="plus"></app-icon>
                 <span
                     class="absolute right-14 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >Copy</span
@@ -144,19 +101,10 @@
 
         <!-- FAB BUTTON -->
         <button
-            class="button-primary hover:button-primary-hover active:button-primary-active text-primary border-primary flex items-center justify-center w-14 h-14 rounded-full shadow-md border active:scale-95 transition transform"
+            class="button-primary hover:button-primary-hover active:button-primary-active text-primary border-primary flex items-center justify-center w-10 h-10 rounded-full shadow-md border active:scale-95 transition transform"
             (click)="toggleSpeedDial()"
         >
-            <svg
-                class="w-6 h-6 transition-transform duration-300"
-                [class.rotate-45]="speedDialOpen"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-            >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7 7V5" />
-            </svg>
+            <app-icon name="plus"></app-icon>
         </button>
     </div>
 </div>

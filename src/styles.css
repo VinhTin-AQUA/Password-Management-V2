@@ -64,6 +64,23 @@
         color: var(--text-button-primary-active);
     }
 
+    .button-danger {
+        background-color: var(--color-red-100);
+        color: var(--color-red-500);
+    }
+
+    .button-danger-hover,
+    .hover\:button-danger-hover:hover {
+        background-color: var(--color-red-400);
+        color: var(--color-white);
+    }
+
+    .button-danger-active,
+    .active\:button-danger-active:active {
+        background-color: var(--color-red-600);
+        color: var(--color-white);
+    }
+
     /* ============ toast ============ */
     .toast-primary {
         background-color: var(--bg-toast-primary);

@@ -11,28 +11,11 @@
 
         <!-- Password Input -->
         <div>
-            <label class="text-primary block text-sm font-medium mb-1">
-                {{ 'password' | translate }}
-            </label>
-            <div class="relative">
-                <input
-                    [type]="showPassword ? 'text' : 'password'"
-                    [(ngModel)]="password"
-                    class="border-primary text-primary w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-blue-400 outline-none transition"
-                    placeholder="*****************"
-                />
-                <button
-                    type="button"
-                    class="text-primary hover:text-primary-hover absolute right-3 top-1/2 -translate-y-1/2 transition"
-                    (click)="showPassword = !showPassword"
-                >
-                    @if(!showPassword){
-                    <app-icon name="eye"></app-icon>
-                    } @if(showPassword){
-                    <app-icon name="eye-slash"></app-icon>
-                    }
-                </button>
-            </div>
+            <app-password-input
+                label="password"
+                [(ngModel)]="password"
+                placeholder="*****************"
+            ></app-password-input>
 
             @if (errorMessage) {
             <span class="text-red-500">{{ errorMessage | translate }}</span>

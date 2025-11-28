@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
 import { AccountModel } from '../../shared/models/account-model';
 import { DialogService } from '../../shared/services/dialog-service';
-import { Icon } from '../../shared/components/icon/icon';
 import { PasscodeStore } from '../../shared/stores/passcode.store';
+import { TextInput } from '../../shared/components/text-input/text-input';
+import { PasswordInput } from '../../shared/components/password-input/password-input';
+import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
 
 @Component({
     selector: 'app-add-account',
-    imports: [TranslatePipe, ReactiveFormsModule, Icon],
+    imports: [TranslatePipe, ReactiveFormsModule, TextInput, PasswordInput, TextAreaInput],
     templateUrl: './add-account.html',
     styleUrl: './add-account.scss',
 })

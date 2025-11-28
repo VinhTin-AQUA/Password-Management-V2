@@ -5,18 +5,17 @@ import { SpreadsheetConfigStore } from '../../shared/stores/spread-sheet-config-
 import { TauriCommandSerivce } from '../../shared/services/tauri-command-service';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, AuthRoutes } from '../../core/enums/routes.enum';
-import { SettingKeys } from '../../core/enums/setting-keys';
-import { StoreHelper } from '../../shared/helpers/store-helper';
 import { ResponseCommand } from '../../shared/models/response-command';
 import { AccountModel } from '../../shared/models/account-model';
 import { UpdateAccountStore } from '../../shared/stores/update-account.store';
 import { DialogService } from '../../shared/services/dialog-service';
-import { Icon } from '../../shared/components/icon/icon';
 import { PasscodeStore } from '../../shared/stores/passcode.store';
+import { TextInput } from '../../shared/components/text-input/text-input';
+import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
 
 @Component({
     selector: 'app-edit-account',
-    imports: [TranslatePipe, ReactiveFormsModule, Icon],
+    imports: [TranslatePipe, ReactiveFormsModule, TextInput, TextAreaInput],
     templateUrl: './edit-account.html',
     styleUrl: './edit-account.scss',
 })
