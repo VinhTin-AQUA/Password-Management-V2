@@ -13,6 +13,7 @@ import { TextInput } from '../../shared/components/text-input/text-input';
 import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
 import { AppStore } from '../../shared/stores/app.store';
 import { PasswordInput } from '../../shared/components/password-input/password-input';
+import { AccountStore } from '../../shared/stores/accounts.store';
 
 @Component({
     selector: 'app-edit-account',
@@ -25,9 +26,9 @@ export class EditAccount {
     submitted: boolean = false;
     form!: FormGroup;
     appStore = inject(AppStore);
-
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     updateAccountStore = inject(UpdateAccountStore);
+    accounts = inject(AccountStore);
 
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
@@ -46,9 +47,6 @@ export class EditAccount {
             note: [''],
         });
         await this.init();
-
-        console.log(this.updateAccountStore.password());
-        
     }
 
     async save() {
@@ -80,6 +78,7 @@ export class EditAccount {
         );
 
         if (response?.is_success) {
+            this.accounts.updateAccount(updateAccount);
             this.dialogService.showToastMessage(true, 'Success', 'Add account successfully', true);
         } else {
             this.dialogService.showToastMessage(true, 'Failed', 'Something error', false);

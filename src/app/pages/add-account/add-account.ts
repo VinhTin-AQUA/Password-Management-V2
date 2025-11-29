@@ -12,6 +12,7 @@ import { TextInput } from '../../shared/components/text-input/text-input';
 import { PasswordInput } from '../../shared/components/password-input/password-input';
 import { TextAreaInput } from '../../shared/components/text-area-input/text-area-input';
 import { AppStore } from '../../shared/stores/app.store';
+import { AccountStore } from '../../shared/stores/accounts.store';
 
 @Component({
     selector: 'app-add-account',
@@ -25,6 +26,7 @@ export class AddAccount {
     form!: FormGroup;
     spreadsheetConfigStore = inject(SpreadsheetConfigStore);
     appStore = inject(AppStore);
+    accounts = inject(AccountStore);
 
     constructor(
         private tauriCommandSerivce: TauriCommandSerivce,
@@ -36,7 +38,7 @@ export class AddAccount {
     ngOnInit() {
         this.form = this.fb.group({
             accountName: ['', Validators.required],
-            username: ['', Validators.required],
+            userName: ['', Validators.required],
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
             note: [''],
@@ -60,7 +62,7 @@ export class AddAccount {
             account_name: this.form.controls['accountName'].value,
             note: this.form.controls['note'].value,
             password: this.form.controls['password'].value,
-            user_name: this.form.controls['username'].value,
+            user_name: this.form.controls['userName'].value,
             salt_base64: '',
         };
 
@@ -73,6 +75,7 @@ export class AddAccount {
         );
 
         if (response?.is_success) {
+            this.accounts.addAccount(addAccount);
             this.dialogService.showToastMessage(true, 'Success', 'Add account successfully', true);
         } else {
             this.dialogService.showToastMessage(true, 'Failed', 'Something error', false);

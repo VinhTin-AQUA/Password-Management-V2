@@ -1,5 +1,6 @@
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { AccountModel } from '../../core/models/account-model';
+import { computed } from '@angular/core';
 
 type AccountState = {
     accounts: AccountModel[];
@@ -21,12 +22,30 @@ export const AccountStore = signalStore(
             }));
         }
 
+        function addAccount(acc: AccountModel) {
+            patchState(store, (currentState) => ({
+                accounts: [...currentState.accounts, acc],
+            }));
+        }
+
         function delele(id: string) {
             patchState(store, (currentState) => ({
                 accounts: store.accounts().filter((acc) => acc.id !== id),
             }));
         }
 
-        return { setAccounts, delele };
+        function updateAccount(updated: AccountModel) {
+            patchState(store, (currentState) => ({
+                accounts: currentState.accounts.map((acc) =>
+                    acc.id === updated.id ? { ...acc, ...updated } : acc
+                ),
+            }));
+        }
+
+        function getAccountById(id: string) {
+            return computed(() => store.accounts().find((acc) => acc.id === id));
+        }
+
+        return { setAccounts, addAccount, delele, updateAccount, getAccountById };
     })
 );
