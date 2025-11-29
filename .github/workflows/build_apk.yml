@@ -44,6 +44,15 @@ jobs:
               with:
                   targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
 
+            - name: Tauri dependencies
+              run: |
+                sudo apt-get update &&
+                sudo apt-get install -y \
+                libwebkit2gtk-4.1-dev \
+                libayatana-appindicator3-dev \
+                webkit2gtk-driver \
+                xvfb
+
             - name: Install dependencies
               run: npm install
 
