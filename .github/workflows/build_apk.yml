@@ -53,7 +53,7 @@ jobs:
             #       NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.11902837
 
             - name: Build app bundle
-              run: npm run tauri android build -- --target aarch64
+              run: npm run tauri android build -- --target aarch64 --verbose
               # env:
               #   JAVA_HOME: /usr/lib/jvm/adoptopenjdk-17-hotspot-amd64
               #   ANDROID_HOME: $HOME/Android/Sdk
