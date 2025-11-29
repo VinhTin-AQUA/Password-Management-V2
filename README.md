@@ -1,59 +1,84 @@
-# PasswordManagement
+# 🔐 My Password Manager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.9.
+A secure, serverless **password manager** built with **Rust**, **Tauri**, **Angular**, and **Tailwind**, using **Google Sheets API** as your personal storage.  
+All your data stays private — stored only in your Google Drive. No centralized server is involved.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
 
-```bash
-ng serve
-```
+-   🔑 **Store passwords securely** in Google Sheets
+-   🛡️ **No central server** — your data is always on your own Drive
+-   🔒 **Local passcode protection** for accessing the app
+-   💻 **Cross-platform desktop app** (Windows, macOS, Linux) via Tauri
+-   🎨 **Modern UI** built with Angular & Tailwind
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🛠️ Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+-   **Rust & Tauri** – backend & desktop integration
+-   **Angular** – frontend framework
+-   **Tailwind CSS** – styling & responsive design
+-   **Google Sheets API** – data storage
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## ⚙️ Setup Google API
 
-```bash
-ng generate --help
-```
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project.
+3. Enable **Google Sheets API** for your project.
+4. Create **OAuth 2.0 Client ID** credentials:
+    - Application type: **Desktop app**
+    - Download the `credentials.json` file.
+5. Save `credentials.json` in the app's config folder.
 
-## Building
+> Make sure the Google account you use has a dedicated sheet for storing your passwords.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 📝 Usage
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. Launch the app.
+2. Connect with your Google account using OAuth.
+3. Select or create a **Google Sheet** to store passwords.
+4. Set your **local passcode**.
+5. Start adding, editing, and managing your passwords securely.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 📂 Data Storage
 
-```bash
-ng test
-```
+-   Passwords & notes → Stored in **Google Sheet**
+-   Passcode → Stored locally on your machine
 
-## Running end-to-end tests
+> All sensitive data stays under your control.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 🎨 UI Preview
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+<div style="">
 
-## Additional Resources
+  <img src="./docs/1.jpg" alt="UI Preview 1" width="220"/>
+  <img src="./docs/2.jpg" alt="UI Preview 2" width="220"/>
+  <img src="./docs/3.jpg" alt="UI Preview 3" width="220"/>
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+</div>
+
+---
+
+## 📖 License
+
+MIT License – feel free to use and modify!
+
+---
+
+## 💡 Tips
+
+-   Regularly backup your Google Sheet.
+-   Use a strong local passcode.
+-   Only share your Sheet with trusted accounts if needed.
+
+---
