@@ -68,7 +68,7 @@ jobs:
                 KEY_ALIAS: newtunkey
                 KEY_PASSWORD: abcdef@123
               run: |
-                npm run tauri android build -- --target aarch64 --verbose
+                npm run tauri android build -- --target aarch64
 
 
             # - name: Extract android signing key from env
@@ -91,7 +91,7 @@ jobs:
 
             - name: Rename APK file
               run: |
-                  mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-signed.apk ./src-tauri/gen/android/app/build/outputs/apk/universal/release/password-management-${{ steps.package-version.outputs.current-version}}.apk
+                  mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk ./src-tauri/gen/android/app/build/outputs/apk/universal/release/password-management-${{ steps.package-version.outputs.current-version}}.apk
 
             - name: Publish
               uses: softprops/action-gh-release@v1
