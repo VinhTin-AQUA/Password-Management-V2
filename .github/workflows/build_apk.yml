@@ -26,9 +26,9 @@ jobs:
             - name: Setup Android SDK
               uses: android-actions/setup-android@v3
               with:
-                api-level: 35
-                build-tools: "35.0.0"
-                ndk-version: "27.0.11902837"
+                  api-level: 35
+                  build-tools: '35.0.0'
+                  ndk-version: '27.0.11902837'
 
             - name: Install NDK
               run: sdkmanager "ndk;27.0.11902837"
@@ -46,12 +46,12 @@ jobs:
 
             - name: Tauri dependencies
               run: |
-                sudo apt-get update &&
-                sudo apt-get install -y \
-                libwebkit2gtk-4.1-dev \
-                libayatana-appindicator3-dev \
-                webkit2gtk-driver \
-                xvfb
+                  sudo apt-get update &&
+                  sudo apt-get install -y \
+                  libwebkit2gtk-4.1-dev \
+                  libayatana-appindicator3-dev \
+                  webkit2gtk-driver \
+                  xvfb
 
             - name: Install dependencies
               run: npm install
@@ -63,13 +63,12 @@ jobs:
 
             - name: Build app bundle
               env:
-                KEYSTORE_PATH: newtun-release-key.keystore
-                STORE_PASSWORD: abcdef@123
-                KEY_ALIAS: newtunkey
-                KEY_PASSWORD: abcdef@123
+                  KEYSTORE_PATH: newtun-release-key.keystore
+                  STORE_PASSWORD: abcdef@123
+                  KEY_ALIAS: newtunkey
+                  KEY_PASSWORD: abcdef@123
               run: |
-                npm run tauri android build -- --target aarch64
-
+                  npm run tauri android build -- --target aarch64
 
             # - name: Extract android signing key from env
             #   run: |
@@ -92,6 +91,13 @@ jobs:
             - name: Rename APK file
               run: |
                   mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk ./src-tauri/gen/android/app/build/outputs/apk/universal/release/password-management-${{ steps.package-version.outputs.current-version}}.apk
+
+            - name: Create Tag
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "github-actions@github.com"
+                  git tag v${{ steps.package-version.outputs.current-version }}
+                  git push origin v${{ steps.package-version.outputs.current-version }}
 
             - name: Publish
               uses: softprops/action-gh-release@v1
