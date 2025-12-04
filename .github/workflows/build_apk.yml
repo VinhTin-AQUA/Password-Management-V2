@@ -89,13 +89,13 @@ jobs:
             #         --out src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-signed.apk \
             #         src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
 
-            - name: Rename APK file
-              run: |
-                  mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk ./src-tauri/gen/android/app/build/outputs/apk/universal/release/password-management-${{ steps.package-version.outputs.current-version}}.apk
-
             - name: Get Node project version
               id: package-version
               uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+            - name: Rename APK file
+              run: |
+                  mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk ./src-tauri/gen/android/app/build/outputs/apk/universal/release/password-management-${{ steps.package-version.outputs.current-version}}.apk
 
             - name: Xóa tag cũ (nếu tồn tại)
               run: |
